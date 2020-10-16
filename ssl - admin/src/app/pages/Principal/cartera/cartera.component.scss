@@ -1,0 +1,18 @@
+@import 'src/app/components/mixins.scss';
+
+@import 'src/app/components/mixins.scss';
+
+.totalUsers {
+  color: $primary;
+  font-size: 80px;
+  text-align: center;
+}
+.tresCards {
+  height: 90%;
+  min-width: 277px;
+}
+
+::ng-deep .c3-chart-arcs-title {
+  font-size: 25px;
+  font-weight: bolder;
+}

@@ -1,0 +1,116 @@
+@import 'src/app/components/mixins.scss';
+
+.imagenInicioUno {
+  width: 115%;
+  position: relative;
+  left: -28px;
+  top: -19px;
+}
+.imagenInicioDos {
+  height: 300px;
+  width: 119%;
+  position: relative;
+  top: -37px;
+  left: -34px;
+}
+.fe-plus-circle {
+  color: green;
+  /* text-shadow: 1px 1px #333; */
+  font-size: 20px;
+}
+.btn {
+  width: 30px;
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.cardWelcome {
+  width: 60%;
+  border: none !important;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+.cardWelcomeDiv {
+  box-shadow: 0 10px 30px -20px rgb(173, 172, 172);
+}
+.cardTres {
+  height: 350px;
+  &:hover {
+    background-color: #252b3b;
+
+    h3,
+    h5 {
+      color: white;
+    }
+    p,
+    span {
+      color: #b8b8c4;
+    }
+  }
+}
+.welcomeImage {
+  padding-right: 0px;
+  background-color: black;
+  min-width: 290px;
+  margin-top: 30px !important;
+  position: relative;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.white {
+  background-color: white;
+}
+.card-inicio :hover {
+  background-color: #646874;
+  color: $ligth;
+}
+.buttonSendEmail {
+  margin-top: 6px;
+  float: right;
+}
+.dependencias {
+  border-radius: 0px;
+  display: flex;
+  flex-direction: row;
+}
+.buttonConfirmar {
+  width: 200px;
+  align-self: flex-end;
+}
+.area {
+  width: 150px;
+  border-radius: 20px;
+  border: 2px solid #f7ca44;
+  background-color: #fdf1cc;
+  margin-right: 10px;
+}
+
+.areaInput {
+  width: 80%;
+  background: transparent;
+  border: none;
+  &:focus {
+    border: none;
+  }
+}
+.buttonDeleteArea {
+  width: 20%;
+  padding: 0px;
+  right: 25px;
+  font-size: 20px;
+  color: #f7ca44;
+  margin: auto;
+}
+.avatar {
+  width: 100px;
+  border-radius: 50%;
+  align-self: center;
+  margin: 20px 0px;
+}
+a:link,
+a:visited {
+  text-decoration: none;
+
+  cursor: pointer;
+}

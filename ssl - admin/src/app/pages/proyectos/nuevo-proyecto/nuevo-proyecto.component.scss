@@ -1,0 +1,190 @@
+@import 'src/app/components/mixins.scss';
+.logo {
+  background-color: $grayLigth;
+  height: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.pdf-viewer {
+  height: 90%;
+  position: relative;
+  top: -220px;
+}
+::ng-deep .ant-modal-body {
+  padding-top: 0px;
+}
+::ng-deep .ant-upload-list {
+  top: 4px;
+  /* display: flex; */
+  position: relative;
+  &-item {
+    z-index: 200;
+  }
+}
+
+.fe-image {
+  font-size: 40px;
+  color: $placeholder;
+}
+
+// nz-upload {
+//   width: 50%;
+//   height: 200px;
+//
+.saveInfoButton {
+  justify-content: flex-end;
+}
+::ng-deep .ant-upload-list-item {
+  float: left;
+  width: 48% !important;
+  height: 204px !important;
+  margin: 0 8px 8px 0;
+  border: solid 1px #e4e9f1;
+  object-fit: fill !important;
+  & .ant-upload-list-item-actions {
+    top: 30px !important;
+    left: 90% !important;
+    font-size: 20px;
+    :hover {
+      color: rgb(151, 5, 5) !important;
+    }
+    .anticon {
+      width: 100%;
+      font-size: 20px;
+      border: 2px solid red;
+      padding: 3px;
+      background: white;
+      color: red;
+      ::before {
+        content: '\e9e4';
+      }
+    }
+    .anticon-eye {
+      display: none;
+    }
+  }
+}
+
+::ng-deep .ant-upload-select-picture-card {
+  width: 48% !important;
+  height: 204px !important;
+}
+::ng-depp .ant-upload-list-item-thumbnail {
+}
+
+.foto360 {
+  position: relative;
+  text-align: center;
+  height: 220px;
+
+  &:hover {
+    background-color: $darkBlue;
+    img {
+      opacity: 0.4;
+    }
+  }
+  &:hover .containerAgregarPunto {
+    display: inline-block;
+  }
+}
+.containerAgregarPunto {
+  position: relative;
+  top: -80%;
+  color: white;
+  text-align: center;
+  h4 {
+    color: $ligth;
+  }
+  display: none;
+}
+
+.foto img:hover {
+  opacity: 0.4;
+}
+.fe-plus-circle {
+  font-size: 50px;
+
+  color: $primary;
+}
+.buttonIcon {
+  background-color: transparent;
+  border: none;
+}
+::ng-deep .ant-radio-group .hsOption {
+  border: 1px solid black !important;
+  background: #f2f4f8 !important;
+  border-radius: 20px;
+  padding: 2px !important;
+}
+::ng-deep .ant-radio-button-wrapper:not(:first-child)::before {
+  background-color: transparent !important;
+}
+
+::ng-deep .ant-radio-button-wrapper {
+  transition: none !important;
+  background-color: transparent !important;
+  color: #b9b9c5 !important;
+  width: 155px;
+  border-radius: 20px !important;
+  border: transparent 2px solid !important;
+  &:hover,
+  &:focus,
+  &:active,
+  &-checked {
+    border: 1px solid black !important;
+    background-color: $primary !important;
+    color: $black !important;
+  }
+}
+.puntoCaliente {
+  border: solid 1px $darkBlue;
+  border-left: solid 4px black;
+  background-color: #e4e9f1;
+  margin: 0px 20px 10px 45px;
+  padding-left: 19px;
+  width: 50%;
+  text-align: justify;
+  align-items: center;
+  /* height: 50px; */
+  font-size: 18px;
+}
+.iconsPuntoCaliente {
+  float: right;
+  background-color: $ligth;
+  border-left: 1px solid $darkBlue;
+  .editar :hover {
+    background-color: $primary;
+    color: black;
+  }
+  .eliminar :hover {
+    background-color: $danger;
+    color: black;
+  }
+  .fe-edit {
+    color: $primary;
+    padding: 5px;
+    :hover {
+    }
+  }
+  .fe-trash-2 {
+    color: $danger;
+    padding: 5px;
+    border-left: 1px solid $darkBlue;
+  }
+}
+.fe-help-circle {
+  font-size: 23px;
+}
+
+.textRechazo {
+  &:focus {
+    border: 2px solid $primary;
+
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+}

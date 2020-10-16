@@ -1,0 +1,153 @@
+<div>
+  <h2>Cuenta</h2>
+
+  <div class="card">
+    <div class="card-body">
+      <form nz-form [nzLayout]="'vertical'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <div class="row">
+          <div class="col-md-6">
+            <!--Razon Social-->
+
+            <nz-form-item>
+              <nz-form-label nzFor="razonSocial">Razón social</nz-form-label>
+              <nz-form-control nzHasFeedback [nzErrorTip]="validateRazonSocial">
+                <input
+                  nz-input
+                  placeholder="Razón social"
+                  id="razonSocial"
+                  formControlName="razonSocial"
+                  name="razonSocial"
+                  required
+                />
+              </nz-form-control>
+
+              <ng-template #validateRazonSocial let-control>
+                <ng-container *ngIf="control.hasError('required')"
+                  ><sup>*</sup>Por favor ingrese Razón social
+                </ng-container>
+              </ng-template>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--Imagen de perfil-->
+
+            <nz-form-item>
+              <nz-form-label nzFor="razonSocial">Imagen de perfil</nz-form-label>
+              <nz-upload
+                nz-input
+                nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                [nzHeaders]="{ authorization: 'authorization-text' }"
+                (nzChange)="handleChange($event)"
+              >
+                <button nz-button><i nz-icon nzType="upload"></i>Seleccionar un archivo</button>
+              </nz-upload>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--NIT-->
+
+            <nz-form-item>
+              <nz-form-label nzFor="NIT">NIT (Opcional)</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="NIT" id="NIT" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--Nombre contacto-->
+
+            <nz-form-item>
+              <nz-form-label nzFor="nombreContacto">Nombre de contacto</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="Nombre de contacto" id="nombreContacto" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--SectorComercial-->
+
+            <nz-form-item>
+              <nz-form-label>Sector Comercial</nz-form-label>
+              <nz-select>
+                <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+              </nz-select>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--Telefono-->
+
+            <nz-form-item>
+              <nz-form-label nzFor="phone">Teléfono de contacto</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="Teléfono de contacto" id="phone" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--Address-->
+
+            <nz-form-item>
+              <nz-form-label nzFor="address">Dirección</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="Dirección" id="address" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--Email-->
+
+            <nz-form-item>
+              <nz-form-label nzFor="email">Correo electrónico</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="Correo electrónico" id="email" />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--Numero de funcionarios-->
+
+            <nz-form-item>
+              <nz-form-label>Número de funcionarios</nz-form-label>
+              <nz-select>
+                <nz-option nzValue="jack" nzLabel="Jaooooo"></nz-option>
+                <nz-option nzValue="lucy" nzLabel="Lucyyyyyy"></nz-option>
+                <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+              </nz-select>
+            </nz-form-item>
+          </div>
+          <div class="col-md-6">
+            <!--password-->
+            <nz-form-item>
+              <nz-form-label nzFor="password">Contraseña</nz-form-label>
+
+              <nz-form-control>
+                <div class="text-right">
+                  <input
+                    nz-input
+                    [type]="hide ? 'text' : 'password'"
+                    placeholder="Contraseña"
+                    id="password"
+                  />
+                  <span class="eye">
+                    <a (click)="hide = !hide"
+                      ><i [ngClass]="hide ? 'fe fe-eye' : 'fe fe-eye-off'"></i
+                    ></a>
+                  </span>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div class="col-12">
+            <nz-form-item>
+              <button nz-button type="button">
+                Confirmar
+              </button>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

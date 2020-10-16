@@ -1,0 +1,56 @@
+@import 'src/app/components/mixins.scss';
+
+// main layout
+.cui__utils__content {
+  // max-width: 1200px;
+}
+
+.ant-layout-content {
+  background-color: #f2f4f8;
+  padding: 2% 6%;
+  min-height: 100vh;
+}
+.ant-layout-header {
+  background-color: white;
+  padding: 0 15px !important;
+}
+.ant-layout-sider {
+  background-color: $darkBlue;
+}
+.ant-layout-footer {
+  display: none;
+  align-self: end;
+  width: 100%;
+}
+
+::ng-deep {
+  .ant-layout-sider {
+    width: 250px !important;
+    min-width: 250px !important;
+  }
+  .ant-layout {
+    //height: 100%;
+    font-family: Ubuntu;
+    p {
+      color: $text;
+    }
+    &-sider {
+      width: 300px;
+    }
+  }
+  .mobileMenu {
+    .ant-drawer-content,
+    .ant-drawer-wrapper-body {
+      overflow: visible !important;
+      pointer-events: all;
+    }
+    .ant-drawer-body {
+      padding: 0 !important;
+      pointer-events: all;
+      height: 100%;
+    }
+    .ant-layout-sider {
+      height: 100%;
+    }
+  }
+}

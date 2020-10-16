@@ -1,0 +1,63 @@
+<div>
+  <div>
+    <h2>
+      Proyectos<span class="ml-3" style="font-size: 28px;"> &#8226;</span>
+      <span class="ml-3" style="color:#58544E; font-size: 25px;">Proyectos finalizados</span>
+    </h2>
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="form-group form-inline">
+        <div>
+          <input
+            class="form-control"
+            type="text"
+            name="searchTerm"
+            [(ngModel)]="service.searchTerm"
+            placeholder="&#xF002; Buscar"
+            style="font-family: FontAwesome;"
+          />
+        </div>
+
+        <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+      </div>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Fecha de creación</th>
+            <th scope="col" sortable="name" (sort)="onSort($event)">Nombre del Proyecto</th>
+            <th scope="col" sortable="population" (sort)="onSort($event)">Sede</th>
+            <th scope="col" sortable="population" (sort)="onSort($event)"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let id of countries$ | async">
+            <td>
+              <ngb-highlight [result]="id.fecha" [term]="service.searchTerm"></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight [result]="id.name" [term]="service.searchTerm"></ngb-highlight>
+            </td>
+
+            <td>
+              <ngb-highlight [result]="id.sede" [term]="service.searchTerm"></ngb-highlight>
+            </td>
+            <td>
+              <a class="iconTableLink"><i class="fe fe-user-plus"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-end p-2">
+        <ngb-pagination
+          [collectionSize]="total$ | async"
+          [(page)]="service.page"
+          [pageSize]="service.pageSize"
+        >
+        </ngb-pagination>
+      </div>
+    </form>
+  </div>
+</div>

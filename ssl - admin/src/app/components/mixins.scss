@@ -1,0 +1,304 @@
+@import 'src/app/components/kit/core/mixins.scss'; // import KIT mixins
+@import 'src/app/components/cleanui/styles/mixins.scss'; // import CLEANUI mixins
+
+img {
+  height: 100%;
+  width: 100%;
+}
+.link {
+  color: $primary !important;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: $primary-hover !important;
+  }
+}
+
+.ant-select-item {
+  border: $primary;
+  color: red;
+}
+//----------------icon--------------
+.fe {
+  background-color: transparent;
+}
+.fe-help-circle {
+  font-size: 15px !important;
+}
+
+.eye {
+  position: relative;
+  left: -7px;
+  top: -29px;
+  font-size: 18px;
+  color: $placeholder;
+}
+
+//------------Label------------
+
+//-------------Modal-------------
+::ng-deep .ant-modal {
+  font-family: Ubuntu;
+  &-content {
+    border-radius: 10px !important;
+  }
+
+  &-footer {
+    display: none;
+  }
+  &-header {
+    border-bottom: none !important;
+    border-radius: 10px !important;
+    padding-top: 35px !important;
+  }
+}
+::ng-deep .vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep .vertical-center-modal .ant-modal {
+  top: 0;
+}
+//---------Button--------------
+.ant-btn {
+  background-color: $darkBlue;
+  color: $primary;
+  box-shadow: 0 10px 10px -1px grey;
+  border: black 1px solid;
+  &:hover {
+    background: $darkBlue;
+    color: $primary;
+    border: black 1px solid;
+  }
+  &:active {
+    background: $darkBlue;
+    color: $primary;
+    border: black 1px solid;
+  }
+  &:visited {
+    background: $darkBlue;
+    color: $primary;
+    border: black 1px solid;
+  }
+  &:focus {
+    background: $darkBlue;
+    color: $primary;
+    border: black 1px solid;
+  }
+}
+.yellowButton {
+  background-color: $primary;
+  color: $black;
+  border: 1px solid $black;
+  &:hover {
+    background-color: $primary !important;
+    color: $black !important;
+  }
+  &:active {
+    background-color: $primary !important;
+    color: $black !important;
+  }
+  &:focus {
+    background-color: $primary !important;
+    color: $black !important;
+  }
+  &:visited {
+    background-color: $primary !important;
+    color: $black !important;
+  }
+}
+.greenButton {
+  background-color: $success;
+  color: white;
+  border: 1px solid $success;
+  box-shadow: 0 5px 14px -1px $success;
+  &:hover {
+    background-color: $success !important;
+    color: White !important;
+    border: 1px solid $success;
+  }
+  &:active {
+    background-color: $success !important;
+    color: White !important;
+    border: 1px solid $success;
+  }
+  &:focus {
+    background-color: $success !important;
+    color: White !important;
+    border: 1px solid $success;
+  }
+  &:visited {
+    background-color: $success !important;
+    color: White !important;
+    border: 1px solid $success;
+  }
+}
+.redButton {
+  background-color: $danger;
+  color: white;
+  border: 1px solid $danger;
+  box-shadow: 0 5px 14px -1px #db2828;
+
+  &:hover {
+    background-color: $danger !important;
+    color: White !important;
+    border: 1px solid $danger;
+  }
+  &:active {
+    background-color: $danger !important;
+    color: White !important;
+    border: 1px solid $danger;
+  }
+  &:focus {
+    background-color: $danger !important;
+    color: White !important;
+    border: 1px solid $danger;
+  }
+  &:visited {
+    background-color: $danger !important;
+    color: White !important;
+    border: 1px solid $danger;
+  }
+}
+.whiteButton {
+  background-color: $white;
+  color: $black;
+  border: 1px solid $black;
+  &:hover {
+    background-color: $white !important;
+    color: $black !important;
+  }
+  &:active {
+    background-color: $white !important;
+    color: $black !important;
+  }
+  &:focus {
+    background-color: $white !important;
+    color: $black !important;
+  }
+  &:visited {
+    background-color: $white !important;
+    color: $black !important;
+  }
+}
+//----------Input---------------
+.ant-input {
+  color: $dark;
+  &:hover {
+    border-right-width: 1px !important;
+  }
+  &:focus {
+    border: 1px solid $primary-hover;
+    box-shadow: 0 0 2px $primary-hover;
+  }
+  //Placeholder color
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: $placeholder !important;
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: $placeholder !important;
+}
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: $placeholder !important;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: $placeholder !important;
+}
+//-----------------Table-------------
+thead {
+  background-color: $grayLigth;
+}
+
+.iconTableLink {
+  color: black !important;
+  &:hover {
+    color: $primary !important;
+    text-decoration: none !important;
+  }
+}
+
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+  background-color: $ligth !important;
+  color: $dark !important;
+  box-shadow: none;
+  border-color: transparent !important;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a {
+  background-color: $dark !important;
+  color: $primary !important;
+  border: none;
+  box-shadow: none;
+}
+
+ngb-pagination ::ng-deep ul > li > a :focus {
+  box-shadow: none;
+}
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+  background: white !important;
+}
+ngb-pagination ::ng-deep ul > li {
+  &:first-child a {
+    span {
+      display: none;
+    }
+    &:before {
+      content: '<';
+    }
+  }
+  &:last-child a {
+    span {
+      display: none;
+    }
+    &:before {
+      content: '>';
+    }
+  }
+}
+//------------------Cards-----------------------------
+.card-body {
+  border-radius: 8px;
+  margin-top: 30px !important;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  .ant-btn {
+    width: 200px;
+    align-self: flex-end;
+  }
+}
+.marcaIcon {
+  color: #141322;
+  background-color: #f7ca44;
+  font-weight: 100;
+  font-size: 35px;
+  padding: 10px 13px;
+  border-radius: 10%;
+  margin-top: -40px;
+  margin-right: 26px;
+  width: 60px;
+  align-self: flex-end;
+}
+
+::ng-deep .ant-form-item-children-icon {
+  position: absolute !important;
+  right: -31px !important;
+  top: 16px !important;
+}
+::ng-deep .ant-form-item-explain {
+  background-color: rgb(250, 211, 217);
+  padding-left: 10px;
+  color: #f5222e !important;
+}
+
+::ng-deep .ant-form-item-label > label::after {
+  content: ' ' !important;
+}

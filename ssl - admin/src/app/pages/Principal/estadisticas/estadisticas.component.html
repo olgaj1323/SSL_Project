@@ -1,0 +1,194 @@
+<div style="max-width: 1200px;">
+  <h2>Estadísticas por empresa</h2>
+  <br />
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi tenetur molestias tempora
+    esse, architecto culpa accusantium, aliquam et adipisci consectetur eos maxime! Nemo dolorem
+    voluptatem nobis culpa amet fugiat tempora.
+  </p>
+  <div class="row justify-content-between">
+    <div class="col">
+      <nz-select
+        nzSuffixIcon="filter"
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="-Filtro-"
+        [(ngModel)]="selectedValue"
+        style="width: 80%;"
+      >
+        <nz-option nzLabel="Proyect -1" nzValue="jack"></nz-option>
+        <nz-option nzLabel="proyect -2" nzValue="lucy"></nz-option>
+        <nz-option nzLabel="Proyect -3" nzValue="tom"></nz-option>
+      </nz-select>
+    </div>
+    <div class="col">
+      <nz-select
+        nzSuffixIcon="filter"
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="-Filtro-"
+        [(ngModel)]="selectedValue"
+        style="width: 80%;"
+      >
+        <nz-option nzLabel="Proyect -1" nzValue="jack"></nz-option>
+        <nz-option nzLabel="proyect -2" nzValue="lucy"></nz-option>
+        <nz-option nzLabel="Proyect -3" nzValue="tom"></nz-option>
+      </nz-select>
+    </div>
+    <div class="col">
+      <nz-date-picker
+        [nzFormat]="dateFormat"
+        nzPlaceHolder="Seleccionar fecha"
+        nzShowToday="false"
+      ></nz-date-picker>
+    </div>
+    <div class="col">
+      <nz-date-picker
+        [nzFormat]="dateFormat"
+        nzPlaceHolder="Seleccionar fecha"
+        nzShowToday="false"
+      ></nz-date-picker>
+    </div>
+    <div class="col text-right"><button nz-button>Calcular</button></div>
+  </div>
+  <!----------------------- 3 - Cards-->
+
+  <div class="row mt-4 mb-4 justify-content-between">
+    <div class="col">
+      <div class="card-body tresCards">
+        <i class="fe fe-users marcaIcon"></i>
+        <h3 class="mt-2">Usuarios totales del curso</h3>
+        <span class="totalUsers">3.853</span>
+      </div>
+    </div>
+    <div class="text-center col">
+      <div class="card-body tresCards">
+        <i class="fe fe-award marcaIcon"></i>
+        <h3 class="h2Icon">Certificados</h3>
+        <div class="d-flex justify-content-between">
+          <div style="font-size: 13px;color: #B8B8C4;">Usuarios sin certificados</div>
+          <div style="color: #1D73B4 ;">2.540</div>
+        </div>
+
+        <nz-progress
+          [nzPercent]="55"
+          nzSize="small"
+          nzStatus="active"
+          [nzStrokeWidth]="12"
+        ></nz-progress>
+        <div class="d-flex justify-content-between mt-3">
+          <div style="font-size: 13px;color: #B8B8C4;">Usuarios con certificados</div>
+          <div style="color: #21ba45 ;">2.540</div>
+        </div>
+        <nz-progress
+          [nzPercent]="45"
+          nzSize="small"
+          nzStatus="active"
+          [nzStrokeWidth]="12"
+          class="conCertificados"
+        ></nz-progress>
+        <div class="mb-5">
+          <x-chartist> </x-chartist>
+        </div>
+      </div>
+    </div>
+    <div class="text-center col">
+      <div class="card-body tresCards">
+        <i class="fe fe-bar-chart marcaIcon"></i>
+        <h3 class="h2Icon">Avance usuarios</h3>
+        <div class="chartjs-container">
+          <canvas
+            baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            legend="false"
+            [chartType]="barChartType"
+            [colors]="colors"
+          >
+          </canvas>
+        </div>
+
+        <div class="mb-5"></div>
+      </div>
+    </div>
+  </div>
+
+  <!----------------------------------Avance por nivel--------------------------------->
+  <div class="card-body mt-4">
+    <i class="fe fe-pie-chart marcaIcon"></i>
+    <h3>Avance por nivel</h3>
+    <br />
+    <div class="row justify-content-between donuts">
+      <div class="col-sm-6 col-md-2 donut">
+        <div id="donut-chart1"></div>
+        <div class="text-center labels">
+          <p class="mb-0">Nivel 1</p>
+          <p class="mt-0" style="color: #F7CA44; font-size: 30px;">1.245</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-2 donut">
+        <div id="donut-chart2"></div>
+        <div class="text-center labels">
+          <p class="mb-0">Nivel 1</p>
+          <p class="mt-0" style="color: #F7CA44; font-size: 30px;">1.245</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-2 donut">
+        <div id="donut-chart3"></div>
+        <div class="text-center labels">
+          <p class="mb-0">Nivel 1</p>
+          <p class="mt-0" style="color: #F7CA44; font-size: 30px;">1.245</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-2 donut">
+        <div id="donut-chart4"></div>
+        <div class="text-center labels">
+          <p class="mb-0">Nivel 1</p>
+          <p class="mt-0" style="color: #F7CA44; font-size: 30px;">1.245</p>
+        </div>
+      </div>
+      <div class="ccol-sm-6 col-md-2 donut">
+        <div id="donut-chart5"></div>
+        <div class="text-center labels">
+          <p class="mb-0">Nivel 1</p>
+          <p class="mt-0" style="color: #F7CA44; font-size: 30px;">1.245</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!----------------------------------Estado del usuario--------------------------------->
+  <div class="card-body">
+    <div class="d-flex justify-content-between mb-3">
+      <h3>Estado de los usuarios</h3>
+      <button nz-button>Notificar no finalizados</button>
+    </div>
+
+    <table class="table table-bordered mt-4">
+      <thead>
+        <tr>
+          <th scope="col">cédula</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Área</th>
+          <th scope="col">Estado</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of usuarios">
+          <td>{{ user.cedula }}</td>
+          <td>{{ user.nombre }}</td>
+          <td>{{ user.apellido }}</td>
+          <td>{{ user.area }}</td>
+          <td>{{ user.estado }}</td>
+          <td>
+            <a nzTooltipTitle="Notificar" nzTooltipPlacement="top" nz-tooltip>
+              <i class="fe fe-send link"></i
+            ></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

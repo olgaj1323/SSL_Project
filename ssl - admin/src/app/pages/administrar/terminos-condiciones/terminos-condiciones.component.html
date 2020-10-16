@@ -1,0 +1,24 @@
+<div>
+  <div class="mb-4">
+    <h2>
+      Términos y condiciones
+    </h2>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="editor" class="m-4"
+          >Ingresa el documento con los términos y condiciones de uso.</label
+        >
+        <quill-editor
+          [styles]="editorStyle"
+          class="editorTerm"
+          formControlName="editor"
+        ></quill-editor>
+      </div>
+      <div class="mt-4 text-right">
+        <button nz-button>Confirmar</button>
+      </div>
+    </form>
+  </div>
+</div>

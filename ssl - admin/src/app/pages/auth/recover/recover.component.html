@@ -1,0 +1,78 @@
+<div>
+  <a routerLink="/login">
+    <i nz-tooltip nzTooltipTitle="Regresar al inicio de sesión" class="fe fe-arrow-left"></i>
+  </a>
+  <div class="mb-4">
+    <h2>Restablecer contraseña</h2>
+  </div>
+  <form
+    [formGroup]="validateForm"
+    (ngSubmit)="submitForm(validateForm.value)"
+    nz-form
+    [nzLayout]="'vertical'"
+  >
+    <nz-form-item>
+      <nz-form-control nzHasFeedback [nzErrorTip]="combineTpl">
+        <div class="text-right">
+          <input
+            [type]="hide ? 'text' : 'password'"
+            nz-input
+            name="password"
+            formControlName="password"
+            (ngModelChange)="validateConfirmPassword()"
+            placeholder="Nueva contraseña"
+            minlength="8"
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}"
+          />
+          <span class="eye">
+            <a (click)="hide = !hide"><i [ngClass]="hide ? 'fe fe-eye' : 'fe fe-eye-off'"></i></a>
+          </span>
+          <ng-template #combineTpl let-control>
+            <ng-container *ngIf="control.hasError('minlength')"
+              >Debe tener más de 8 caracteres
+            </ng-container>
+            <ng-container *ngIf="control.hasError('required')"
+              >Por favor ingrese su nueva contraseña.
+            </ng-container>
+            <ng-container *ngIf="control.hasError('pattern')"
+              >Debe contener al menos una letra mayúscula y minúscula, un número y un caracter
+              especial (@#$%).
+            </ng-container>
+          </ng-template>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+        <div class="text-right">
+          <input
+            [type]="hide2 ? 'text' : 'password'"
+            nz-input
+            formControlName="confirm"
+            placeholder="Confirmar nueva contraseña"
+          />
+          <span class="eye">
+            <a (click)="hide2 = !hide2"
+              ><i [ngClass]="hide2 ? 'fe fe-eye' : 'fe fe-eye-off'"></i
+            ></a>
+          </span>
+          <ng-template #passwordErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Por favor confirma tu contraseña!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('confirm')">
+              Contraseña no coinciden!
+            </ng-container>
+          </ng-template>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100 mt-4">
+          <strong>Restablecer</strong>
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

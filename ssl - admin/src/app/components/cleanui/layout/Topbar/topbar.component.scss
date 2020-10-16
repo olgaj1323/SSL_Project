@@ -1,0 +1,28 @@
+@import 'src/app/components/mixins.scss';
+
+.topbar {
+  min-height: 64px;
+  height: 64px;
+  border-bottom: 1px solid $border;
+  color: $text;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  @media (max-width: $sm-max-width) {
+    padding: 0 rem(16);
+  }
+}
+
+.space-reducer {
+  max-height: 14px;
+}
+.far-end {
+  font-size: small;
+  margin-bottom: auto;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+}

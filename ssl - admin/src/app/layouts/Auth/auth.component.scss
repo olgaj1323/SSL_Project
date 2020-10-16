@@ -1,0 +1,45 @@
+@import 'src/app/components/mixins.scss';
+
+.authContainer {
+  width: 70%;
+}
+.ant-layout {
+  font-family: $base-font-family;
+}
+.fondo {
+  position: relative;
+}
+.logoCentro {
+  position: absolute;
+  left: 50%; /* horizontal alignment */
+  top: 50%; /* vertical alignment */
+  transform: translate(-50%, -50%);
+}
+
+.ant-layout-content {
+  width: 100%;
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ant-layout-footer {
+  padding: 25px !important;
+  color: $dark !important;
+}
+
+.leftSide {
+  background-image: url(../../../assets/Imagenes/Copiade14793.jpg);
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+.rigthSide {
+  background: white !important;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

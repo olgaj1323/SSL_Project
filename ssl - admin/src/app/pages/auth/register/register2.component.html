@@ -1,0 +1,72 @@
+<div>
+  <div>
+    <div class="text-dark font-size-24 mb-4">
+      <strong>Registro Empresarial</strong>
+    </div>
+    <form [formGroup]="myForm2">
+      <div class="form-group">
+        <label for="contact">Nombre de contacto</label>
+        <input class="form-control" formControlName="contact" placeholder="Nombre de contacto" />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Teléfono de contacto</label>
+        <input class="form-control" formControlName="phone" placeholder="Teléfono de contacto" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input
+          class="form-control"
+          formControlName="email"
+          type="email"
+          placeholder="Correo electrónico"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input class="form-control" formControlName="password" placeholder="Contraseña" />
+      </div>
+      <div class="form-group">
+        <label for="payment">Método de pago</label><br />
+        <div class="custom-control custom-radio">
+          <input
+            type="radio"
+            id="customRadio1"
+            formControlName="payment"
+            value="code"
+            class="custom-control-input"
+          />
+          <label class="custom-control-label" for="customRadio1">Códigos promocionales</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input
+            type="radio"
+            id="customRadio2"
+            formControlName="payment"
+            value="online"
+            class="custom-control-input"
+          />
+          <label class="custom-control-label" for="customRadio2">Pago en linea</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" formControlName="politicas" /> He leído y aceptado las políticas de
+          protección de datos.
+        </div>
+      </div>
+
+      <div class="container">
+        <button type="submit">Regresar</button> <button type="submit">Registrarme</button>
+      </div>
+    </form>
+  </div>
+  <div class="text-center pt-2 mb-auto">
+    <span class="mr-2">Already have an account?</span>
+    <a routerLink="/auth/login" class="kit__utils__link font-size-16">
+      Sign in
+    </a>
+  </div>
+</div>

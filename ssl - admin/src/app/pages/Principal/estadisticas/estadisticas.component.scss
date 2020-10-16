@@ -1,0 +1,58 @@
+@import 'src/app/components/mixins.scss';
+
+a :hover {
+  color: $primary;
+}
+.totalUsers {
+  color: $primary;
+  font-size: 80px;
+  text-align: center;
+}
+.conCertificados {
+  ::ng-deep .ant-progress {
+    &-bg {
+      background-color: #21ba45 !important;
+    }
+  }
+}
+.tresCards {
+  height: 310px;
+}
+.chartContainer {
+  position: relative;
+  margin: auto;
+  height: 20vh;
+  width: 20vw;
+}
+::ng-deep .c3-chart-arcs-title {
+  font-size: 25px;
+  font-weight: bolder;
+}
+
+.donut {
+  bottom: 80px;
+}
+.donuts {
+  height: 300px;
+}
+.labels {
+  bottom: 60px;
+  position: relative;
+}
+::ng-deep {
+  .ant-picker {
+    width: 90%;
+  }
+}
+:host ::ng-deep {
+  .ant-calendar-picker {
+    &:hover,
+    &:focus {
+      border-color: $primary !important;
+      box-shadow: none;
+    }
+    &::placeholder {
+      color: orange !important;
+    }
+  }
+}

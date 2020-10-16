@@ -1,0 +1,64 @@
+<nz-sider [(nzCollapsed)]="isMenuCollapsed">
+  <!--Left Bar-->
+  <div
+    [ngStyle]="{
+      width: isMenuCollapsed ? '80px' : ''
+    }"
+  >
+    <div class="logoContainer">
+      <img
+        src="../../../../../../assets/Imagenes/Copia de LOGO TRANSPARENCIA.png"
+        class="mr-2"
+        alt="SSL"
+      />
+    </div>
+    <div class="navigation">
+      <ul nz-menu [nzInlineIndent]="15" [nzMode]="'inline'" [nzInlineCollapsed]="isMenuCollapsed">
+        <ng-container
+          *ngTemplateOutlet="menuTpl; context: { $implicit: menuDataActivated, level: 0 }"
+        ></ng-container>
+        <ng-template #menuTpl let-menuDataActivated let-level="level">
+          <ng-container *ngFor="let item of menuDataActivated">
+            <ng-container *ngIf="!item.roles || item.roles.includes(role)">
+              <ng-template #tooltipTpl>
+                {{ item.title }}
+              </ng-template>
+              <!-- main item -->
+              <li
+                nz-menu-item
+                *ngIf="!item.children && item.url"
+                routerLink="{{ item.url }}"
+                [nzSelected]="item.selected"
+                [nzDisabled]="item.disabled"
+                nz-tooltip
+                nzTooltipPlacement="right"
+                [nzTooltipTitle]="isMenuCollapsed && level === 0 ? tooltipTpl : ''"
+              >
+                <span [ngStyle]="{ 'padding-left.px': isMenuCollapsed ? '0' : level * 15 }">
+                  <i *ngIf="item.icon" [ngClass]="[item.icon, 'icon']"></i>
+                  <span class="title">{{ item.title }}</span>
+                </span>
+              </li>
+              <!-- submenu item with recursive template -->
+              <li nz-submenu *ngIf="item.children" [nzOpen]="item.open && !isMenuCollapsed">
+                <span title [ngStyle]="{ 'padding-left.px': isMenuCollapsed ? '0' : level * 15 }">
+                  <i *ngIf="item.icon" [ngClass]="[item.icon, 'icon']"></i>
+                  <span class="title">{{ item.title }}</span>
+                </span>
+                <ul>
+                  <ng-container
+                    *ngTemplateOutlet="
+                      menuTpl;
+                      context: { $implicit: item.children, level: level + 1 }
+                    "
+                  >
+                  </ng-container>
+                </ul>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nz-sider>

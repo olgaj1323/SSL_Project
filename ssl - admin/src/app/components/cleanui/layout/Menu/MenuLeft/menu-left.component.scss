@@ -1,0 +1,268 @@
+@import 'src/app/components/mixins.scss';
+
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/* MENU COMPONENT */
+.navigation {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.ant-menu {
+  transition: none;
+  display: block;
+  min-height: 100%;
+  font-size: rem(15);
+  background-color: $darkBlue;
+  color: #92959d;
+  li {
+    margin-top: 15px !important;
+  }
+  li:hover,
+  &-submenu-title:hover {
+    background-color: $primary;
+    color: $dark !important;
+    border-radius: 5px;
+  }
+  li:focus {
+    outline: transparent !important;
+  }
+
+  &-item {
+    margin-top: 15px !important;
+    &-selected {
+      background-color: $primary !important;
+      color: $dark;
+      border-radius: 5px;
+    }
+  }
+  &-inline {
+    border-right: transparent !important;
+  }
+  ::ng-deep {
+    .ant-menu-submenu-open {
+      transition: none;
+      .ant-menu-submenu-title {
+        color: white !important;
+      }
+
+      background: #3a3f4d !important;
+      .ant-menu-item {
+        color: #92959d;
+        &-selected {
+          color: black;
+        }
+      }
+    }
+
+    .ant-menu-submenu > .ant-menu {
+      background: transparent !important;
+    }
+    .ant-menu-submenu-title:active {
+      background-color: transparent !important;
+    }
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* LOGO */
+  // .logoContainer {
+  //   height: 64px;
+  //   display: flex;
+  //   align-items: center;
+
+  //   .logo {
+  //     display: flex;
+  //     flex-direction: row;
+  //     align-items: center;
+  //     height: 100%;
+  //     white-space: nowrap;
+  //     width: 100%;
+  //     background-color: $primary;
+  //   }
+  // }
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* ICON */
+  .icon {
+    font-size: 20px;
+    margin-right: 15px;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* COLLAPSE TRIGGER BUTTON */
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* ANTD MENU CUSTOMIZATION */
+  // .navigation {
+  //   padding: 0 rem(15);
+  //   background: transparent !important;
+  //   border-right: none;
+  //   color: $placeholder;
+
+  //   .title {
+  //     font-size: rem(15);
+  //     margin-left: 15px;
+  //   }
+
+  //   ::ng-deep {
+  //     .ant-menu-submenu > .ant-menu {
+  //       background: transparent;
+  //     }
+
+  //     .ant-menu-submenu-arrow {
+  //       opacity: 0.55;
+  //     }
+
+  //     .ant-menu-inline .ant-menu-item,
+  //     .ant-menu-inline .ant-menu-submenu-title {
+  //       width: 100%;
+  //     }
+
+  //     .ant-menu-item-group-title {
+  //       font-size: rem(12);
+  //       text-transform: uppercase;
+  //       letter-spacing: 2px;
+  //       transition: none;
+  //     }
+
+  //     .ant-menu-submenu-title {
+  //       margin-bottom: 0 !important;
+  //       transition: none !important;
+  //       background: transparent !important;
+  //       color: $placeholder;
+
+  //       &:hover {
+  //         color: $primary;
+  //       }
+  //     }
+
+  //     .ant-menu-submenu {
+  //       border-radius: 5px;
+  //     }
+
+  //     .ant-menu-item {
+  //       margin-bottom: 4px !important;
+  //       border-radius: 5px;
+  //       outline: none;
+  //       > span {
+  //         color: $placeholder;
+  //       }
+
+  //       > a {
+  //         color: $placeholder;
+
+  //         &:hover {
+  //           color: $dark;
+
+  //           .icon {
+  //             color: $dark;
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //     .ant-menu-submenu-selected {
+  //       :global(.ant-menu-submenu-title),
+  //       .icon {
+  //         color: $primary;
+  //       }
+  //     }
+
+  //     .ant-menu-submenu-active {
+  //       .icon {
+  //         color: $primary;
+  //       }
+  //     }
+
+  //     .ant-menu-item-selected,
+  //     .ant-menu-submenu-selected {
+  //       background-color: red !important;
+
+  //       > a,
+  //       > span {
+  //         color: $dark !important;
+
+  //         .icon {
+  //           color: $dark !important;
+  //         }
+  //       }
+
+  //       &:after {
+  //         display: none;
+  //       }
+  //     }
+
+  //     .ant-menu-item-active {
+  //       > span {
+  //         color: $primary;
+  //       }
+  //     }
+
+  //     .ant-menu-item-disabled {
+  //       > span {
+  //         color: $gray-4;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /* COLLAPSED STYLES */
+  // &.ant-layout-sider-collapsed {
+  //   ::ng-deep {
+  //     @at-root {
+  //       .ant-menu-inline-collapsed-tooltip .icon {
+  //         display: none;
+  //       }
+  //     }
+
+  //     .badge {
+  //       position: absolute;
+  //       z-index: 1;
+  //       top: 3px;
+  //       right: 3px;
+  //     }
+
+  //     .title,
+  //     .name,
+  //     .line,
+  //     .descr {
+  //       display: none !important;
+  //     }
+
+  //     .ant-menu-item-group {
+  //       position: relative;
+  //       &:after {
+  //         content: '';
+  //         display: block;
+  //         width: 100%;
+  //         height: 1px;
+  //         position: absolute;
+  //         left: 0;
+  //         top: 50%;
+  //         background: $border;
+  //       }
+  //     }
+
+  //     .ant-menu-item-group-title {
+  //       visibility: hidden;
+  //     }
+
+  //     .ant-menu-inline-collapsed-tooltip .icon {
+  //       display: none;
+  //     }
+
+  //     .ant-menu-item,
+  //     .ant-menu-submenu-title {
+  //       padding-left: 0 !important;
+  //       padding-right: 0 !important;
+
+  //       .icon {
+  //         right: rem(15);
+  //       }
+  //     }
+  //   }
+  // }
+}

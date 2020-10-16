@@ -1,0 +1,412 @@
+<div>
+  <div>
+    <h2>
+      Proyectos<span class="ml-3" style="font-size: 28px;">&#8226;</span>
+      <span class="ml-3" style="color:#58544E; font-size: 25px;">Agregar nuevo proyecto</span>
+    </h2>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="proyectForm" nz-form [nzLayout]="'vertical'">
+      <div class="row">
+        <div class="col-sm-4">
+          <nz-form-item>
+            <label for="titulo"
+              >Título del proyecto <a><i class="fe fe-help-circle"></i></a
+            ></label>
+            <input
+              nz-input
+              class="form-control"
+              name="titulo"
+              formControlName="titulo"
+              palceholder="Título del proyecto"
+            />
+          </nz-form-item>
+          <nz-form-item>
+            <label
+              >Subtítulo del proyecto <a><i class="fe fe-help-circle"></i></a
+            ></label>
+            <input
+              nz-input
+              class="form-control"
+              formControlName="subtitulo"
+              palceholder="Subítulo del proyecto"
+            />
+          </nz-form-item>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <nz-form-item>
+            <label for="file">Logo del proyecto</label>
+            <nz-form-control>
+              <button nz-button onclick="document.getElementById('file').click()">
+                Seleccionar un archivo
+              </button>
+
+              <input
+                nz-input
+                formControlName="file"
+                id="file"
+                type="file"
+                class="btn-load-logo"
+                placeHolder="Seleccionar un archivo"
+                (change)="onFileChange($event)"
+                accept="image/x-png,image/gif,image/jpeg"
+                value="Uploadfile"
+                style="display:none"
+              />
+              <div class="mt-3" style="font-size: 10px; text-align: justify;">
+                Tu archivo debe tener formato de imagen (.png .jpeg .gift)
+              </div>
+              <div class="imgContainer mt-2" style="height: 80px; width: 80%;">
+                <div class="logo " *ngIf="!imageURL">
+                  <i class="fe fe-image placeholder"></i>
+                </div>
+                <div class="imagePreview h-100" *ngIf="imageURL && imageURL !== ''">
+                  <img [src]="imageURL" />
+                </div>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <div class="pdfFile" style="height: 200px;">
+            <nz-upload
+              nzType="drag"
+              (nzChange)="handleChange($event)"
+              nzAccept=".pdf, .ppt"
+              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              [nzRemove]="removePDF"
+            >
+              <p class="ant-upload-drag-icon">
+                <i nz-icon nzType="upload"></i>
+              </p>
+              <p class="ant-upload-text p-2" style="color: #B8B8B8;">
+                Arrastra aquí tu plan de trabajo en formato PDF o PowerPoint
+              </p>
+            </nz-upload>
+
+            <div class="pdf-viewer" *ngIf="pdfSrc && pdfSrc !== ''">
+              <pdf-viewer [src]="pdfSrc" [render-text]="true" style="height: auto;"></pdf-viewer>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-8 form-group">
+          <nz-form-item>
+            <label for="textAreaProyecto">Descripción</label>
+            <textarea
+              nz-input
+              class="form-control"
+              name="textAreaProyecto"
+              formControlName="textAreaProyecto"
+              placeholder="Escriba aquí la descripción del proyecto..."
+            >
+            </textarea>
+          </nz-form-item>
+        </div>
+        <div class="col-sm-4 d-flex saveInfoButton">
+          <button nz-button class="buttonConfirmar">
+            Guardar información
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-----------------------Entorno Virtual------------------------->
+
+  <!------------------------No cuento con fotos 360------------------>
+  <div class="card-body">
+    <h2>Entorno Virtual</h2>
+    <form [formGroup]="entornoVirtual">
+      <nz-form-item>
+        <nz-form-label>Cuento con las fotos 360°</nz-form-label>
+        <nz-switch
+          ngModel
+          [ngModelOptions]="{ standalone: true }"
+          nzCheckedChildren="Si"
+          nzUnCheckedChildren="NO"
+          (ngModelChange)="onChecked($event)"
+        ></nz-switch>
+      </nz-form-item>
+
+      <div *ngIf="noFoto" class="form-group">
+        <label for="textAreaFotos">Descripción de la solicitud de fotos 360°</label>
+        <textarea
+          nz-input
+          class="form-control"
+          name="textAreaFotos"
+          formControlName="textAreaFotos"
+          placeholder="Escriba aquí la descripción de las fotos 360°..."
+        >
+        </textarea>
+      </div>
+      <!------------------------cuento con fotos 360------------------>
+      <div *ngIf="siFoto" class="clearfix">
+        <div class="">
+          <nz-upload
+            nzListType="picture-card"
+            [(nzFileList)]="fileList"
+            [nzShowButton]="fileList.length < 5"
+            [nzPreview]="handlePreview"
+          >
+            <i nz-icon style="width: 70px;"
+              ><img src="../../../../assets/Imagenes/Copia de 001-360-degree copy.svg"
+            /></i>
+            <div class="ant-upload-text">Has click o arrastra aquí una imagen 360</div>
+          </nz-upload>
+        </div>
+      </div>
+      <div>
+        <button
+          *ngIf="noFoto"
+          nz-button
+          class="buttonConfirmar"
+          style="float: right;"
+          (click)="enviarDescripcion()"
+        >
+          Enviar
+        </button>
+        <button
+          *ngIf="siFoto"
+          nz-button
+          class="buttonConfirmar"
+          style="float: right;"
+          (click)="confirmarFotos()"
+        >
+          Confirmar
+        </button>
+      </div>
+    </form>
+  </div>
+  <!---------------------------Agregar Punto Caliente---------------------->
+  <div *ngIf="hotSpot" class="card-body ">
+    <h2>Puntos Calientes</h2>
+
+    <div class="row justify-content-between">
+      <div class="col-sm-6">
+        <div class="foto360 mt-2" *ngFor="let image of fileList; let i = index">
+          <img class="foto" src="../../../../assets/images/example.jpg" />
+          <div class="containerAgregarPunto">
+            <h4>Imagen 360 {{ i + 1 }}</h4>
+            <a class="buttonIcon" (click)="addHotSpot()"><i class="fe fe-plus-circle"></i></a><br />
+            <span>Agregar punto caliente</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 ">
+        <div class="overflow-auto">
+          <div class="puntoCaliente rounded">
+            <span>Puerta</span>
+            <div class="iconsPuntoCaliente d-flex">
+              <div class="editar">
+                <a nzTooltipTitle="Editar" nzTooltipPlacement="top" nz-tooltip
+                  ><i class="fe fe-edit"></i
+                ></a>
+              </div>
+              <div class="eliminar">
+                <a nzTooltipTitle="Eliminar" nzTooltipPlacement="top" nz-tooltip
+                  ><i class="fe fe-trash-2"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="puntoCaliente rounded">
+            <span>Escritorio</span>
+            <div class="iconsPuntoCaliente d-flex">
+              <div class="editar">
+                <a nzTooltipTitle="Editar" nzTooltipPlacement="top" nz-tooltip
+                  ><i class="fe fe-edit"></i
+                ></a>
+              </div>
+              <div class="eliminar">
+                <a nzTooltipTitle="Eliminar" nzTooltipPlacement="top" nz-tooltip
+                  ><i class="fe fe-trash-2"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="puntoCaliente rounded">
+            <span>Ventana</span>
+            <div class="iconsPuntoCaliente d-flex">
+              <div class="editar">
+                <a nzTooltipTitle="Editar" nzTooltipPlacement="top" nz-tooltip
+                  ><i class="fe fe-edit"></i
+                ></a>
+              </div>
+              <div class="eliminar">
+                <a nzTooltipTitle="Eliminar" nzTooltipPlacement="top" nz-tooltip
+                  ><i class="fe fe-trash-2"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 mt-4 d-flex justify-content-between">
+      <div *ngIf="tecnico">
+        <button nz-button class="greenButton mr-4">Aprobar</button>
+        <button nz-button class="redButton" (click)="Rechazado()">Rechazar</button>
+      </div>
+      <button
+        style="float: right;"
+        *ngIf="!tecnico"
+        nz-button
+        class="buttonConfirmar"
+        style="float: right;"
+      >
+        Confirmar
+      </button>
+      <button *ngIf="tecnico" nz-button class="buttonConfirmar" style="float: right;">
+        Descargar Zip
+      </button>
+    </div>
+  </div>
+</div>
+
+<!----------------------------------Hot Spot MODAL ------------------------------>
+<nz-modal
+  nzWrapClassName="vertical-center-modal"
+  [(nzVisible)]="isVisibleHotSpot"
+  nzFooter="null"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  class="addHotSpot"
+  (nzOnCancel)="editHotSpotClose()"
+>
+  <ng-template #modalTitle>
+    <h4>Agregar punto caliente</h4>
+  </ng-template>
+
+  <ng-template #modalContent>
+    <nz-form nzLayout="vertical" [formGroup]="hotSpotForm">
+      <div class="text-center">
+        <nz-radio-group class="hsOption" nzName="opt" form-control="opcionesExtra">
+          <label nz-radio-button nzValue="op_Narraciones" (click)="showNarracion()"
+            ><span>Narraciones</span></label
+          >
+          <label nz-radio-button nzValue="op_Video" (click)="showVideo()"><span>Video</span></label>
+          <label nz-radio-button nzValue="op_Infografía" (click)="showInfografia()"
+            ><span>Imagen/Infografía</span></label
+          >
+        </nz-radio-group>
+      </div>
+
+      <nz-form-item>
+        <nz-form-label>Título</nz-form-label>
+        <input nz-input placeholder="Título" form-control="tituloHotSpot" nzValue="tituloHotSpot" />
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Descripción <span> (incluya ubicación)</span></nz-form-label
+        ><icon class="fe fe-help-circle"></icon>
+        <textarea nz-input placeholder="Descripción" form-control="descripcion"></textarea>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Texto principal </nz-form-label><icon class="fe fe-help-circle"></icon>
+        <textarea
+          nz-input
+          placeholder="Escribe aquí el texto principal…"
+          form-control="textoPrincipal"
+        ></textarea>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Texto secundario </nz-form-label><icon class="fe fe-help-circle"></icon>
+        <textarea
+          nz-input
+          placeholder="Escribe aquí el texto secundario…"
+          form-control="textoSecundario"
+        ></textarea>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Descripción de piezas gráficas </nz-form-label
+        ><icon class="fe fe-help-circle"></icon>
+        <textarea
+          nz-input
+          placeholder="Escribe aquí la descripción de piezas gráficas…"
+          form-control="piezasGraficas"
+        ></textarea>
+      </nz-form-item>
+      <div *ngIf="narracion">
+        <nz-form-item>
+          <nz-form-label
+            >Narraciones
+            <span style="font-size: 12px; font-style: italic;">
+              (Separa cada narración con un símbolo de /)
+            </span> </nz-form-label
+          ><icon class="fe fe-help-circle"></icon>
+          <textarea nz-input placeholder="Escribe aquí las narraciones…"></textarea>
+        </nz-form-item>
+      </div>
+      <div *ngIf="video">
+        <nz-form-item>
+          <nz-form-label>Video </nz-form-label><br />
+          <nz-form-control>
+            <nz-upload
+              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              [nzPreviewFile]="previewFile"
+              nzAccept="video/mp4"
+            >
+              <button nz-button><i nz-icon nzType="upload"></i> Seleccionar un archivo</button>
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div *ngIf="infografia">
+        <nz-form-item>
+          <nz-form-label>Imagen/Infografía </nz-form-label><br />
+          <nz-form-control>
+            <nz-upload
+              nz-input
+              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              [nzPreviewFile]="previewFile"
+              nzAccept="image/x-png,image/gif,image/jpeg"
+            >
+              <button nz-button><i nz-icon nzType="upload"></i> Seleccionar un archivo</button>
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div class="row justify-content-between text-center mb-4">
+        <div class="col-6">
+          <button nz-button style="width: 90%;" class="whiteButton">Cancelar</button>
+        </div>
+        <div class="col-6">
+          <button nz-button style="width: 90%;" (click)="AgregarHotSpot()">Agregar</button>
+        </div>
+      </div>
+    </nz-form>
+  </ng-template>
+</nz-modal>
+<!-----------------------------MODAL Rechazar Proyecto-------------------->
+<nz-modal
+  nzWrapClassName="vertical-center-modal"
+  [(nzVisible)]="isRechazado"
+  nzFooter="null"
+  [nzTitle]="modalTitle1"
+  [nzContent]="modalContent1"
+  (nzOnCancel)="rechazadoClose()"
+>
+  <ng-template #modalTitle1>
+    <h4 class="text-center">Desea rechazar el proyecto?</h4>
+  </ng-template>
+
+  <ng-template #modalContent1>
+    <p>Incluya las causales del rechazo</p>
+
+    <label for="rechazo"></label>
+    <textarea name="rechazo" style="width: 100%; min-height: 20px;" class="textRechazo"></textarea>
+
+    <div class="row justify-content-between text-center mb-4 mt-4">
+      <div class="col-6">
+        <button nz-button class="whiteButton" (click)="rechazadoClose()">Cancelar</button>
+      </div>
+      <div class="col-6">
+        <button nz-button (click)="rechazadoConfirmar()">Confirmar</button>
+      </div>
+    </div>
+  </ng-template>
+</nz-modal>

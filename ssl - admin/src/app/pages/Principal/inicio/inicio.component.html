@@ -1,0 +1,160 @@
+<!---------------------Verificar Correo ---------------->
+<div style="max-width: 1200px;">
+  <h1>Inicio</h1>
+  <div *ngIf="empresa">
+    <div class="container-fluid">
+      <div class="row cardWelcomeDiv">
+        <div class="col-sm-9 card-body cardWelcome">
+          <h3 class="card-title">Bienvenido Usuario</h3>
+          <div *ngIf="verificarEmail">
+            <p class="card-text">
+              Por favor activa tu cuenta a travez de tu correo electrónico, si no realizas este paso
+              no podrás crear un nuevo proyecto..
+            </p>
+            <p class="card-text">
+              Si no recibiste un correo de activación, haz click en el botón para enviarlo
+              nuevamente.
+            </p>
+            <button nz-button class="buttonSendEmail">Enviar correo de activación</button>
+          </div>
+          <div *ngIf="bienvenida">
+            <p class="card-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum sint, laboriosam
+              reiciendis, a, atque repellendus quisquam vero sunt iste hic ipsum ipsa cumque facilis
+              eveniet? Nisi consequuntur tempora rerum labore.
+            </p>
+            <p class="card-text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque dolor impedit,
+              accusamus qui placeat id a, cupiditate reprehenderit sapiente eaque sit amet in, et
+              accusantium. Nulla fuga expedita enim cupiditate!
+            </p>
+          </div>
+        </div>
+        <div *ngIf="verificarEmail" class=" col-sm-3 my-auto welcomeImage">
+          <img
+            class="imagenInicioUno"
+            src="../../../../assets/Imagenes/Copia de admin-welcome.png"
+          />
+        </div>
+        <div *ngIf="bienvenida" class=" col-sm-3 my-auto welcomeImage white">
+          <img class="imagenInicioDos" src="../../../../assets/Imagenes/admin-welcome-02.png" />
+        </div>
+      </div>
+    </div>
+    <!-------Send Verification Email------>
+    <div *ngIf="verificarEmail" class="mt-5 max-widthCard">
+      <h2 style="margin-top: 20px;">Agregar áreas</h2>
+      <p class="mt-4">
+        Agregar las areas dependencias de tu empresa, una vez agrgadas no las podras modificar
+      </p>
+      <div class="card-body dependencias overflow-auto">
+        <section *ngFor="let address of addresses; let i = index">
+          <div class="d-flex area">
+            <input
+              nz-input
+              type="text"
+              class="form-control areaInput"
+              [(ngModel)]="address.street"
+              name="street_{{ address.id }}"
+            /><button class="btn buttonDeleteArea" (click)="removeAddress(i)">
+              <i class="fe fe-x-circle"></i>
+            </button>
+          </div>
+        </section>
+        <button type="button" class="btn" (click)="addAddress()">
+          <i class="fe fe-plus-circle"></i>
+        </button>
+      </div>
+      <div class="d-flex flex-column mt-3">
+        <button nz-button class="buttonConfirmar mt-3 mb-3" (click)="guardarCambios()">
+          Guardar cambios
+        </button>
+      </div>
+    </div>
+
+    <!-------Three Cards------>
+    <div *ngIf="bienvenida" class="row my-5 max-widthCard">
+      <div class="col-md-12 col-lg-4 pr-md-1 ">
+        <a [routerLink]="['/proyectos/proyectoProceso']">
+          <div class="card-body cardTres">
+            <i class="fe fe-folder marcaIcon"></i>
+            <h3 class="mt-2">Proyectos</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat earum assumenda est
+              perferendis corrupti.
+            </p>
+            <div class="row text-center justify-content-between">
+              <div class="col-6">
+                <h1 style="color:#21BA45; font-size: 60px;">24</h1>
+
+                <h5>En proceso</h5>
+              </div>
+              <div class="col-6">
+                <h1 style="color:#f7ca44; font-size: 60px;">138</h1>
+
+                <h5>Finalizados</h5>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class=" col-md-12 col-lg-4 pr-md-1 pr-3">
+        <a [routerLink]="['/estadistica']">
+          <div class="card-body cardTres ">
+            <i class="fe fe-clock marcaIcon"></i>
+            <h3 class="mt-2">Estadística</h3>
+            <p>
+              Quisque at nulla ligula. Ut sit amet tortor consequat, efficitur velit nec, gravida
+              libero.
+            </p>
+            <div class="mb-5">
+              <img src="../../../../assets/Imagenes/admin-grafica.png" />
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class=" col-md-12 col-lg-4 pr-md-1">
+        <a [routerLink]="['/cuenta']">
+          <div class="text-center card-body cardTres">
+            <i class="fe fe-user marcaIcon"></i>
+            <h3 class="mt-2">Cuenta</h3>
+            <div class="avatar">
+              <img
+                src="../../../../assets/images/avatar.png"
+                alt="Avatar"
+                style="border-radius: 50%;"
+              />
+            </div>
+
+            <h3 class="m-0">Usuario</h3>
+            <h3 class="m-0" style="color:#666666;">SLL Colombia</h3>
+            <p class="font-italic">Role</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row cardWelcomeDiv">
+      <div class="col-sm-9 card-body cardWelcome">
+        <h3 class="card-title">Bienvenido Usuario</h3>
+
+        <div>
+          <p class="card-text text-justify">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum sint, laboriosam
+            reiciendis, a, atque repellendus quisquam vero sunt iste hic ipsum ipsa cumque facilis
+            eveniet? Nisi consequuntur tempora rerum labore.
+          </p>
+          <p class="card-text text-justify">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque dolor impedit, accusamus
+            qui placeat id a, cupiditate reprehenderit sapiente eaque sit amet in, et accusantium.
+            Nulla fuga expedita enim cupiditate!
+          </p>
+        </div>
+      </div>
+      <div class=" col-sm-3 my-auto welcomeImage white">
+        <img class="imagenInicioDos" src="../../../../assets/Imagenes/admin-welcome-02.png" />
+      </div>
+    </div>
+  </div>
+</div>

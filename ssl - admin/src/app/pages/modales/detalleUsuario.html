@@ -1,0 +1,68 @@
+<a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#detalleUsuario">
+  Click to open Modal
+</a>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="detalleUsuario"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="detalleUsuarioLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detalle de usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img />
+        <input
+          type="checkbox"
+          checked
+          data-toggle="toggle"
+          data-on="Ready"
+          data-off="Not Ready"
+          data-onstyle="success"
+          data-offstyle="danger"
+        />
+
+        <form [formGroup]="detalleUsuarioForm">
+          <div class="form-group">
+            <label>Cedula</label>
+            <input class="form-control" type="text" formControlName="cedula" />
+          </div>
+          <div class="form-group">
+            <label>Nombre</label>
+            <input class="form-control" type="text" formControlName="nombre" />
+          </div>
+          <div class="form-group">
+            <label>Correo electronico</label>
+            <input class="form-control" type="email" formControlName="email" />
+          </div>
+
+          <div class="form-group">
+            <label>Telefono</label>
+            <input class="form-control" type="text" formControlName="phone" />
+          </div>
+          <div class="form-group">
+            <label>Fijo</label>
+            <input class="form-control" type="text" formControlName="fijo" />
+          </div>
+          <div class="form-group">
+            <label>Rol</label>
+            <select class="form-control" formControlName="rol">
+              <option value="Super Administrador"></option>
+              <option value="Financiero"></option>
+              <option value="Analista"></option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

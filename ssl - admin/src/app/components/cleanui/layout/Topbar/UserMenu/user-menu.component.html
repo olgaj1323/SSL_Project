@@ -1,0 +1,21 @@
+<div>
+  <div
+    nz-dropdown
+    nzTrigger="click"
+    class="dropdown"
+    [nzDropdownMenu]="menu"
+    (nzVisibleChange)="badgeCountIncrease()"
+  >
+    <nz-avatar nzIcon="user" [nzShape]="'square'" [nzSize]="'large'" class="avatar"></nz-avatar>
+  </div>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item>
+        <a href="javascript: void(0);" (click)="logout()">
+          <i class="fe fe-log-out mr-2"></i>
+          Cerrar sesión
+        </a>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

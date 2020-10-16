@@ -1,0 +1,121 @@
+@import 'src/app/components/mixins.scss';
+
+//////////////////////////////////////////////////////////////////////////////////////////
+/* LOGIN */
+.arrow-left {
+  position: absolute;
+  top: 29px;
+  left: 20px;
+  font-size: 36px;
+  color: $primary;
+}
+
+.boxContainer {
+  padding: rem(50) rem(30);
+}
+
+.nextButton {
+  background-color: white;
+  border: #f7ca44 solid 1px;
+  box-shadow: 0 10px 15px -10px #f7ca44;
+  font-size: 15px;
+  padding: 0px;
+  width: 40%;
+  align-self: flex-end;
+  &:hover {
+    background-color: white;
+    border: #f7ca44 solid 1px;
+    color: $primary-hover;
+  }
+}
+
+.register-area {
+  margin-left: 20px;
+}
+// [nz-radio] {
+//   display: block;
+//   margin-left: 20px;
+// }
+.ticket.ant-modal-footer {
+  border-top: 2px dotted #e4e9f0;
+  :after {
+    content: '';
+    position: absolute !important;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    border-right: #fff 7px solid;
+    border-bottom: #fff 7px solid;
+    -moz-border-radius: 0 0 20px 0;
+    -webkit-border-radius: 0 0 20px 0;
+    border-radius: 0 0 20px 0;
+  }
+
+  :before {
+    content: '';
+    position: absolute !important;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    border-left: #fff 7px solid;
+    border-bottom: #fff 7px solid;
+    -moz-border-radius: 0 0 0 20px;
+    -webkit-border-radius: 0 0 0 20px;
+    border-radius: 0 0 0 20px;
+  }
+}
+.fe-arrow-right {
+  margin-left: 5px;
+}
+
+::ng-deep .ant-modal.ant-modal-footer {
+  padding: 10px 16px;
+  background: green;
+  border-top: 1px solid #f0f0f0;
+  border-radius: 0 0 2px 2px;
+}
+
+.validar {
+  width: 80%;
+}
+.tittleModal {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.pCode {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.inputCode {
+  width: 60%;
+  display: flex;
+  margin: auto;
+}
+.cardPayment {
+  height: 65px;
+}
+
+::ng-deep .password .ant-form-item-explain {
+  transform: translateY(-27px);
+}
+::ng-deep .ant-radio-group {
+  .ant-radio-button-wrapper {
+    height: 60px;
+    border: none;
+    &-checked {
+      border: 2px solid $primary !important;
+      .ant-radio-button-wrapper:first-child {
+        border-left: $primary !important;
+      }
+    }
+  }
+  display: flex !important;
+}
+::ng-deep .ant-radio-button-wrapper:not(:first-child)::before {
+  background-color: white !important;
+}
+::ng-deep .ant-radio-button-wrapper:first-child {
+  border-left: white !important;
+}
+//.ant-radio-button-wrapper-checked

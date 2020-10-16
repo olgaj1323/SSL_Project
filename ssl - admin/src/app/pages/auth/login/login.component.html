@@ -1,0 +1,51 @@
+<div>
+  <div class="card boxContainer border-0">
+    <div class="mb-4">
+      <h2>Iniciar sesión</h2>
+    </div>
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="submitForm()" role="form">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your email!">
+          <input
+            type="text"
+            nz-input
+            formControlName="email"
+            nzSize="large"
+            placeholder="Correo Electrónico"
+            required
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <div class="text-right">
+            <input
+              [type]="hide ? 'text' : 'password'"
+              nz-input
+              nzSize="large"
+              formControlName="password"
+              placeholder="Contraseña"
+              required
+            />
+            <span class="eye">
+              <a (click)="hide = !hide"><i [ngClass]="hide ? 'fe fe-eye' : 'fe fe-eye-off'"></i></a>
+            </span>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <a routerLink="/forgot-password" class="link align-self-end mb-4">
+          ¿Olvidaste tu contraseña?
+        </a>
+        <nz-form-control>
+          <button nz-button nzBlock [nzSize]="'large'" class="text-center w-100 buttonGeneral">
+            <strong>Iniciar sesión</strong>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <p class="align-self-center mt-4">
+      ¿No tienes cuenta?<a class="link" routerLink="/register"> Regístrate </a>
+    </p>
+  </div>
+</div>

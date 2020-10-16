@@ -1,0 +1,282 @@
+<div>
+  <a *ngIf="isVisibleArrow" routerLink="/login" id="regresarInicio">
+    <i class="fe fe-arrow-left mr-1 align-middle arrow-left"></i>
+  </a>
+  <div class="mb-4">
+    <h2>Registro Empresarial</h2>
+  </div>
+
+  <form nz-form [nzLayout]="'vertical'" [formGroup]="myFormRegister" (ngSubmit)="submitForm()">
+    <div *ngIf="showDiv.register1">
+      <nz-form-item>
+        <nz-form-label nzFor="razonSocial">Razón social</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="validateRazonSocial">
+          <input
+            nz-input
+            placeholder="Razón social"
+            id="razonSocial"
+            formControlName="razonSocial"
+            name="razonSocial"
+            required
+          />
+        </nz-form-control>
+
+        <ng-template #validateRazonSocial let-control>
+          <ng-container *ngIf="control.hasError('required')"
+            ><sup>*</sup>Por favor ingrese Razón social
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="NIT">NIT (Opcional)</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="validateNIT">
+          <input
+            nz-input
+            placeholder="NIT"
+            id="NIT"
+            formControlName="NIT"
+            required
+            pattern="^[0-9]{8,15}-[0-9]{1}$"
+          />
+        </nz-form-control>
+        <ng-template #validateNIT let-control>
+          <ng-container *ngIf="control.hasError('required')"
+            ><sup>*</sup>Por favor ingrese NIT
+          </ng-container>
+          <ng-container *ngIf="control.hasError('pattern')"
+            >El formato del NIT obedece a la forma XXXXXXXXX-Y.
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Sector Comercial</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzPlaceHolder="Sector Comercial"
+            formControlName="sectorComercial"
+            (change)="changeSectorComercial($event)"
+            required
+          >
+            <nz-option *ngFor="let sector of sectores" [nzValue]="sector" [nzLabel]="sector">
+              {{ sector }}</nz-option
+            >
+          </nz-select>
+          <div class="ant-form-item-explain" *ngIf="submitted && sector.errors?.required">
+            <sup>*</sup>Por favor seleccione un sector comercial
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="address">Dirección</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="validateAddress">
+          <input
+            type="text"
+            nz-input
+            placeholder="Dirección"
+            id="address"
+            formControlName="address"
+            required
+          />
+        </nz-form-control>
+        <ng-template #validateAddress let-control>
+          <ng-container *ngIf="control.hasError('required')"
+            ><sup>*</sup>Por favor ingrese Dirección
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Número de funcionarios</nz-form-label>
+        <nz-form-control>
+          <nz-select
+            nzPlaceHolder="Número de funcionarios"
+            formControlName="numeroFuncionarios"
+            required
+          >
+            <nz-option *ngFor="let employee of employees" [nzValue]="employee" [nzLabel]="employee">
+              {{ employee }}</nz-option
+            >
+          </nz-select>
+          <div
+            class="ant-form-item-explain"
+            *ngIf="submitted && numeroFuncionarios.errors?.required"
+          >
+            <sup>*</sup>Por favor seleccione número de funcionarios
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="text-right">
+        <button
+          nz-button
+          nzSize="'small'"
+          type="button"
+          class="nextButton btn px-5 mt-4"
+          (click)="showRegister2()"
+        >
+          Siguiente <i class="fe fe-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="showDiv.register2">
+      <nz-form-item>
+        <nz-form-label nzFor="nombreContacto">Nombre de contacto</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="validateContact">
+          <input
+            nz-input
+            placeholder="Nombre de contacto"
+            id="nombreContacto"
+            formControlName="contact"
+            required
+          />
+        </nz-form-control>
+        <ng-template #validateContact let-control>
+          <ng-container *ngIf="control.hasError('required')"
+            ><sup>*</sup>Por favor ingrese Nombre de contacto
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="phone">Teléfono de contacto</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="validatePhone">
+          <input
+            type="tel"
+            nz-input
+            placeholder="Teléfono de contacto"
+            id="phone"
+            formControlName="phone"
+            required
+          />
+        </nz-form-control>
+        <ng-template #validatePhone let-control>
+          <ng-container *ngIf="control.hasError('required')"
+            ><sup>*</sup>Por favor ingrese Teléfono de contacto
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="email">Correo electrónico</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="validateEmail">
+          <input
+            type="email"
+            nz-input
+            placeholder="Correo electrónico"
+            id="email"
+            formControlName="email"
+            required
+            pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+          />
+        </nz-form-control>
+        <ng-template #validateEmail let-control>
+          <ng-container *ngIf="control.hasError('required')"
+            ><sup>*</sup>Por favor ingrese Correo electrónico.
+          </ng-container>
+          <ng-container *ngIf="control.hasError('pattern')"
+            >Ingrese un correo electrónico válido.
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="password">Contraseña</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="combineTpl" class="password">
+          <div class="text-right">
+            <input
+              [type]="hide ? 'text' : 'password'"
+              nz-input
+              placeholder="Contraseña"
+              id="password"
+              formControlName="password"
+              minlength="8"
+              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}"
+              required
+            />
+            <span class="eye">
+              <a (click)="hide = !hide"
+                ><i [ngClass]="hide2 ? 'fe fe-eye' : 'fe fe-eye-off'"></i
+              ></a>
+            </span>
+          </div>
+        </nz-form-control>
+        <ng-template #combineTpl let-control>
+          <ng-container *ngIf="control.hasError('minlength')"
+            >Debe tener más de 8 caracteres
+          </ng-container>
+          <ng-container *ngIf="control.hasError('required')"
+            >Por favor ingrese su nueva contraseña.
+          </ng-container>
+          <ng-container *ngIf="control.hasError('pattern')"
+            >Debe contener al menos una letra mayúscula y minúscula, un número y un caracter
+            especial (@#$%).
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="password">Confirmar contraseña</nz-form-label>
+        <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl" class="password">
+          <div class="text-right">
+            <input
+              [type]="hide2 ? 'text' : 'password'"
+              nz-input
+              formControlName="confirm"
+              placeholder="Confirmar contraseña"
+            />
+            <span class="eye">
+              <a (click)="hide2 = !hide2"
+                ><i [ngClass]="hide2 ? 'fe fe-eye' : 'fe fe-eye-off'"></i
+              ></a>
+            </span>
+            <ng-template #passwordErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Por favor confirma tu contraseña!
+              </ng-container>
+              <ng-container *ngIf="control.hasError('confirm')">
+                Contraseña no coinciden!
+              </ng-container>
+            </ng-template>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control>
+          <label nz-checkbox formControlName="agree" required>
+            <span>He leído y aceptado los</span>
+          </label>
+          <span style="color:#f7ca44;"
+            ><a
+              href="https://docs.google.com/document/d/1EWpV8up4YBW991MWVFsumhvGb0D8Q7vUmnorgLgyMFU/edit"
+              target="_blank"
+              >términos y condiciones.</a
+            ></span
+          >
+          <div *ngIf="submitted && f.agree.errors" class="ant-form-item-explain">
+            <sup>*</sup>Debe aceptar los términos y condiciones para seguir con el registro.
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="mt-4 d-flex justify-content-between">
+        <button
+          nz-button
+          type="button"
+          class="btn whiteButton px-5"
+          (click)="showDiv.register1 = true; showDiv.register2 = false; isVisibleArrow = true"
+        >
+          <i class="fe fe-arrow-left mr-2"></i>Regresar
+        </button>
+        <button nz-button type="submit" class="btn registrar px-5">
+          Registrarme
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-----------------Modal Code Validation --------------------->
+
+<!-----------------Modal Pay Online --------------------->

@@ -1,0 +1,28 @@
+<div>
+  <nz-layout>
+    <!-- left menu -->
+    <!-- FIX: nz-sider wrapper fix layout behaviour in case when cui-menu-left root tag breaks layout transformation -->
+    <nz-sider *ngIf="!isMobileView">
+      <cui-menu-left></cui-menu-left>
+    </nz-sider>
+
+    <nz-layout>
+      <nz-header>
+        <cui-topbar></cui-topbar>
+      </nz-header>
+      <nz-content>
+        <!--<cui-breadcrumbs></cui-breadcrumbs>-->
+        <div class="cui__utils__content">
+          <div
+            [@slideFadeinUp]="routeAnimation(outlet, 'slideFadeinUp')"
+            [@slideFadeinRight]="routeAnimation(outlet, 'slideFadeinRight')"
+            [@zoomFadein]="routeAnimation(outlet, 'zoomFadein')"
+            [@fadein]="routeAnimation(outlet, 'fadein')"
+          >
+            <router-outlet #outlet="outlet"></router-outlet>
+          </div>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</div>
