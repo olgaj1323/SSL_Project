@@ -31,10 +31,13 @@ export class jwtAuthService {
         }
       : {}
 
-    return this.http.get('/api/auth/account', params)
+    return this.http.get(domain2 + 'api/v1/user/1', params)
   }
 
   logout(): Observable<any> {
     return this.http.get(domain2 + '/api/auth/logout')
+  }
+  getToken(): string {
+    return localStorage.getItem('token')
   }
 }

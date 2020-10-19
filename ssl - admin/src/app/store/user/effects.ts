@@ -41,8 +41,19 @@ export class UserEffects implements OnInitEffects {
           map(response => {
             console.log('respuesta effect', response)
             if (response && response.data.accessToken) {
+              console.log('RESPONSE', response)
               store.set('accessToken', response.accessToken)
               this.notification.success('Logged In', 'You have successfully logged in!')
+              localStorage.setItem(
+                'user',
+                JSON.stringify({
+                  id: response.data.id,
+                  //    name: 'Administrator',
+                  email: response.data.email,
+                  role: response.data.roles,
+                  token: response.data.accessToken,
+                }),
+              )
               this.router.navigate(['/inicio'])
               return new UserActions.LoadCurrentAccountSuccessful(response.data)
             }

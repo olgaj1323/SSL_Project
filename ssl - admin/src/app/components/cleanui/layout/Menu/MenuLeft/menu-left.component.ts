@@ -29,6 +29,7 @@ export class MenuLeftComponent implements OnInit {
   constructor(private menuService: MenuService, private store: Store<any>, private router: Router) {
     const userInfo = JSON.parse(localStorage.getItem('user'))
     this.role = userInfo ? userInfo.role : null
+    console.log('ROLE in MENU', this.role, userInfo)
   }
 
   ngOnInit() {

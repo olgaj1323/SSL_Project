@@ -4,13 +4,13 @@ export const getMenuData: any[] = [
     key: 'inicio',
     icon: 'fe fe-home',
     url: '/inicio',
-    roles: ['ROLE_SUPER_ADMIN', 'TECNICO', 'EMPRESA', 'FINANCIERO'],
+    //roles: ['ROLE_SUPER_ADMIN', 'TECNICO', 'EMPRESA', 'FINANCIERO'],
   },
   {
     title: 'Administrar',
     key: 'apps',
     icon: 'fe fe-settings',
-    roles: ['ROLE_SUPER_ADMIN'],
+    //roles: ['ROLE_SUPER_ADMIN'],
     children: [
       {
         title: 'Usuarios',
@@ -43,7 +43,7 @@ export const getMenuData: any[] = [
     key: 'estadisticas',
     icon: 'fe fe-pie-chart',
     url: '/estadisticas',
-    roles: ['EMPRESA'],
+    // roles: ['EMPRESA'],
   },
   {
     title: 'Cartera',

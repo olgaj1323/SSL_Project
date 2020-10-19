@@ -20,7 +20,7 @@ export class TopbarUserMenuComponent {
     this.billingPlan = 'Professional'
     this.email = userInfo ? userInfo.email : ''
     this.phone = userInfo ? userInfo.phoneNumber : '-'
-    this.role = 'admin'
+    this.role = userInfo ? userInfo.roles : ''
   }
 
   badgeCountIncrease() {
