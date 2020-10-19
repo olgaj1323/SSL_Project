@@ -3,9 +3,10 @@ import * as UserActions from './actions'
 export const initialState: object = {
   id: '',
   name: '',
-  role: '',
+  roles: [''],
   email: '',
   avatar: '',
+  password: '',
   authorized: false,
   loading: false,
 }
@@ -13,6 +14,12 @@ export const initialState: object = {
 export function reducer(state = initialState, action: UserActions.Actions): object {
   switch (action.type) {
     case UserActions.LOGIN:
+      return {
+        ...state,
+        email: action.payload.email,
+        password: action.payload.password,
+        loading: true,
+      }
     case UserActions.REGISTER:
     case UserActions.LOAD_CURRENT_ACCOUNT:
       return {
@@ -20,8 +27,13 @@ export function reducer(state = initialState, action: UserActions.Actions): obje
         loading: true,
       }
     case UserActions.LOGIN_SUCCESSFUL:
+      return {
+        ...state,
+        loading: false,
+      }
     case UserActions.REGISTER_SUCCESSFUL:
     case UserActions.LOAD_CURRENT_ACCOUNT_SUCCESSFUL:
+      console.log(state)
       return {
         ...state,
         ...action.payload,
@@ -29,6 +41,10 @@ export function reducer(state = initialState, action: UserActions.Actions): obje
         authorized: true,
       }
     case UserActions.LOGIN_UNSUCCESSFUL:
+      return {
+        ...state,
+        loading: false,
+      }
     case UserActions.REGISTER_UNSUCCESSFUL:
     case UserActions.LOAD_CURRENT_ACCOUNT_UNSUCCESSFUL:
       return {

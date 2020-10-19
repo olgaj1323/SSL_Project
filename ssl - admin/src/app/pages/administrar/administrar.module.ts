@@ -6,9 +6,15 @@ import { AdminEmpresaComponent } from './Empresa/admin-empresa.component'
 import { AdminUsuarioComponent } from './usuarios/admin-usuario.component'
 import { AdministrarRoutingModule } from './administrar-routing.module'
 import { TerminosCondicionesComponent } from './terminos-condiciones/terminos-condiciones.component'
+import { ProyectosAdminComponent } from './proyectos-admin/proyectos-admin.component'
 
 @NgModule({
-  declarations: [AdminEmpresaComponent, AdminUsuarioComponent, TerminosCondicionesComponent],
+  declarations: [
+    AdminEmpresaComponent,
+    AdminUsuarioComponent,
+    TerminosCondicionesComponent,
+    ProyectosAdminComponent,
+  ],
   imports: [SharedModule, FormsModule, NgbModule, AdministrarRoutingModule],
 })
 export class AdministrarModule {}

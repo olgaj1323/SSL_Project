@@ -10,6 +10,7 @@ import { NzNotificationService } from 'ng-zorro-antd'
 import * as Reducers from 'src/app/store/reducers'
 import * as UserActions from './actions'
 import { jwtAuthService } from 'src/app/services/jwt'
+import { firebaseAuthService } from 'src/app/services/firebase'
 
 @Injectable()
 export class UserEffects implements OnInitEffects {
@@ -18,6 +19,7 @@ export class UserEffects implements OnInitEffects {
     private jwtAuthService: jwtAuthService,
     private router: Router,
     private rxStore: Store<any>,
+    private firebaseAuthService: firebaseAuthService,
     private notification: NzNotificationService,
   ) {}
 
@@ -37,11 +39,12 @@ export class UserEffects implements OnInitEffects {
       if (settings.authProvider === 'jwt') {
         return this.jwtAuthService.login(payload.email, payload.password).pipe(
           map(response => {
-            console.log(response)
-            if (response && response.accessToken) {
+            console.log('respuesta effect', response)
+            if (response && response.data.accessToken) {
               store.set('accessToken', response.accessToken)
               this.notification.success('Logged In', 'You have successfully logged in!')
-              return new UserActions.LoadCurrentAccount()
+              this.router.navigate(['/inicio'])
+              return new UserActions.LoadCurrentAccountSuccessful(response.data)
             }
             this.notification.warning('Auth Failed', response)
             return new UserActions.LoginUnsuccessful()
@@ -52,6 +55,17 @@ export class UserEffects implements OnInitEffects {
           }),
         )
       }
+      // firebase login
+      return from(this.firebaseAuthService.login(payload.email, payload.password)).pipe(
+        map(() => {
+          this.notification.success('Logged In', 'You have successfully logged in!')
+          return new UserActions.LoadCurrentAccount()
+        }),
+        catchError((error: any) => {
+          this.notification.warning(error.code, error.message)
+          return from([{ type: UserActions.LOGIN_UNSUCCESSFUL }])
+        }),
+      )
     }),
   )
 
@@ -99,7 +113,7 @@ export class UserEffects implements OnInitEffects {
         return this.jwtAuthService.currentAccount().pipe(
           map(response => {
             if (response && (response.email || response.user)) {
-              this.router.navigate(['/'])
+              this.router.navigate(['/Principal/inicio.module'])
               return new UserActions.LoadCurrentAccountSuccessful(response)
             }
             return new UserActions.LoadCurrentAccountUnsuccessful()

@@ -12,11 +12,10 @@ import { CuentaComponent } from './cuenta/cuenta.component'
 import { CarteraComponent } from './cartera/cartera.component'
 import { ChartModule } from 'angular2-chartjs'
 import { ChartsModule } from 'ng2-charts'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProyectosAdminComponent } from './proyectos-admin/proyectos-admin.component'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 @NgModule({
-  declarations: [InicioComponent, EstadisticasComponent, CuentaComponent, CarteraComponent, ProyectosAdminComponent],
+  declarations: [InicioComponent, EstadisticasComponent, CuentaComponent, CarteraComponent],
   imports: [
     SharedModule,
     ChartistModule,

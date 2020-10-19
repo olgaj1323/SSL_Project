@@ -1,7 +1,7 @@
 <!---------------------Verificar Correo ---------------->
 <div style="max-width: 1200px;">
   <h1>Inicio</h1>
-  <div *ngIf="empresa">
+  <div *ngIf="role == 'company'">
     <div class="container-fluid">
       <div class="row cardWelcomeDiv">
         <div class="col-sm-9 card-body cardWelcome">
@@ -134,10 +134,10 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid">
+  <div class="container-fluid" *ngIf="role == 'ROLE_SUPER_ADMIN'">
     <div class="row cardWelcomeDiv">
       <div class="col-sm-9 card-body cardWelcome">
-        <h3 class="card-title">Bienvenido Usuario</h3>
+        <h3 class="card-title">Bienvenido {{ username }}</h3>
 
         <div>
           <p class="card-text text-justify">

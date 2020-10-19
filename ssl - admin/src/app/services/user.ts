@@ -1,7 +1,7 @@
-export interface Iuser {
+export interface userLogged {
   id: Number
-  name: string
+  username: string
   email: string
-  password: string
-  rol: string
+  roles: string
+  accessToken: string
 }

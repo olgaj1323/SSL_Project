@@ -17,19 +17,20 @@ export class LoginComponent {
   fieldTextType: boolean
   form: FormGroup
   logo: String
-  authProvider: string = 'firebase'
+  authProvider: string = 'jwt'
   loading: boolean = false
 
   constructor(private fb: FormBuilder, public authService: AuthService, private store: Store<any>) {
     this.form = fb.group({
-      email: ['jgcardenasa@gmail.com', [Validators.required, Validators.minLength(4)]],
-      password: ['123456Jg', [Validators.required]],
+      email: ['olgaj8604@gmail.com', [Validators.required, Validators.minLength(4)]],
+      password: ['12345olGA', [Validators.required]],
     })
     this.store.pipe(select(Reducers.getSettings)).subscribe(state => {
       this.logo = state.logo
       this.authProvider = state.authProvider
     })
     this.store.pipe(select(Reducers.getUser)).subscribe(state => {
+      console.log('login.ts', state)
       this.loading = state.loading
     })
   }

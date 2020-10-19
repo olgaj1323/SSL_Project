@@ -3,7 +3,6 @@ import { Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import store from 'store'
 
-const domain = 'http://ssl-balancer-1418801584.us-east-1.elb.amazonaws.com'
 const domain2 = 'http://ssl-balancer-1418801584.us-east-1.elb.amazonaws.com'
 
 @Injectable()

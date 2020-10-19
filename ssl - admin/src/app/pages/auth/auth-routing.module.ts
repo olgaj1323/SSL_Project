@@ -8,6 +8,8 @@ import { RegisterComponent } from 'src/app/pages/auth/register/register.componen
 import { ForgotPasswordComponent } from 'src/app/pages/auth/forgot-password/forgot-password.component'
 import { Error500Component } from 'src/app/pages/auth/500/500.component'
 import { RecoverComponent } from './recover/recover.component'
+import { AuthGuard } from 'src/app/components/cleanui/layout/Guard/auth.guard'
+import { Error404Component } from './404/404.component'
 // import { Error404Component } from 'src/app/pages/auth/404/404.component'
 
 const routes: Routes = [
@@ -25,6 +27,7 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     data: { title: 'Sign Up' },
+    canActivate: [AuthGuard],
   },
   {
     path: 'recover',
@@ -35,11 +38,11 @@ const routes: Routes = [
     component: ForgotPasswordComponent,
     data: { title: 'Forgot Password' },
   },
-  // {
-  //   path: '404',
-  //   component: Error404Component,
-  //   data: { title: 'Error 404' },
-  // },
+  {
+    path: '404',
+    component: Error404Component,
+    data: { title: 'Error 404' },
+  },
   {
     path: '500',
     component: Error500Component,

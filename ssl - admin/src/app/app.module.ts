@@ -26,6 +26,9 @@ import { QuillModule } from 'ngx-quill'
 
 import { NZ_I18N, en_US as localeZorro } from 'ng-zorro-antd'
 import { ChartsModule } from 'ng2-charts'
+import { EffectsModule } from '@ngrx/effects'
+import { UserEffects } from './store/user/effects'
+import { jwtAuthService } from './services/jwt'
 const LOCALE_PROVIDERS = [
   { provide: LOCALE_ID, useValue: 'en' },
   { provide: NZ_I18N, useValue: localeZorro },
@@ -45,6 +48,7 @@ const LOCALE_PROVIDERS = [
     /**
      * NgRx Store
      */
+    EffectsModule.forRoot([UserEffects]),
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot(),
 
@@ -71,7 +75,7 @@ const LOCALE_PROVIDERS = [
      */
     AppRoutingModule,
   ],
-  providers: [...LOCALE_PROVIDERS, { provide: SETTINGS, useValue: {} }],
+  providers: [...LOCALE_PROVIDERS, { provide: SETTINGS, useValue: {} }, jwtAuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

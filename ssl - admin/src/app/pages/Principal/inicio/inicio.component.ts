@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core'
+import { Store, select } from '@ngrx/store'
+import * as Reducers from 'src/app/store/reducers'
+import { userLogged } from '../../../services/user'
 
 @Component({
   selector: 'app-inicio',
@@ -6,9 +9,10 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./inicio.component.scss'],
 })
 export class InicioComponent implements OnInit {
-  constructor() {}
+  constructor(private store: Store<any>) {}
 
-  empresa = false
+  username: string
+  role: string
   verificarEmail = true
   bienvenida = false
   dependencias = []
@@ -32,7 +36,13 @@ export class InicioComponent implements OnInit {
       right: 40,
     },
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.pipe(select(Reducers.getUser)).subscribe(userState => {
+      this.role = userState.roles[0]
+      this.username = userState.username
+      console.log('User State role', userState.roles[0], this.username, this.role)
+    })
+  }
   addDependencia() {
     this.dependencias.push()
     console.log('click button')

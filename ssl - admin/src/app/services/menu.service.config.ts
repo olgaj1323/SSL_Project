@@ -4,11 +4,13 @@ export const getMenuData: any[] = [
     key: 'inicio',
     icon: 'fe fe-home',
     url: '/inicio',
+    roles: ['ROLE_SUPER_ADMIN', 'TECNICO', 'EMPRESA', 'FINANCIERO'],
   },
   {
     title: 'Administrar',
     key: 'apps',
     icon: 'fe fe-settings',
+    roles: ['ROLE_SUPER_ADMIN'],
     children: [
       {
         title: 'Usuarios',
@@ -28,6 +30,12 @@ export const getMenuData: any[] = [
         icon: 'fe fe-book',
         url: '/administrar/adminTerminos',
       },
+      {
+        title: 'Proyectos',
+        key: 'proyectos',
+        icon: 'fe fe-folder',
+        url: '/administrar/adminProyectos',
+      },
     ],
   },
   {
@@ -35,24 +43,20 @@ export const getMenuData: any[] = [
     key: 'estadisticas',
     icon: 'fe fe-pie-chart',
     url: '/estadisticas',
+    roles: ['EMPRESA'],
   },
   {
     title: 'Cartera',
     key: 'cartera',
     icon: 'fe fe-dollar-sign',
     url: '/cartera',
+    roles: ['ROLE_SUPER_ADMIN', 'FINANCIERO'],
   },
-  {
-    title: 'Proyectos',
-    key: 'proyectosAdmin',
-    icon: 'fe fe-folder',
-    url: '/proyectosAdmin',
-  },
-
   {
     title: 'Proyectos',
     key: 'proyectos',
     icon: 'fe fe-folder',
+    roles: ['EMPRESA'],
     children: [
       {
         title: 'Agregar Nuevo',
@@ -73,5 +77,13 @@ export const getMenuData: any[] = [
     key: 'cuenta',
     icon: 'icmn-coin-dollar',
     url: '/cuenta',
+    roles: ['EMPRESA'],
+  },
+  {
+    title: 'Proyectos',
+    key: 'proyectos',
+    icon: 'fe fe-folder',
+    url: '/proyectos',
+    roles: ['TECNICO'],
   },
 ]
