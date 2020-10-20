@@ -33,7 +33,6 @@ export function reducer(state = initialState, action: UserActions.Actions): obje
       }
     case UserActions.REGISTER_SUCCESSFUL:
     case UserActions.LOAD_CURRENT_ACCOUNT_SUCCESSFUL:
-      console.log(state)
       return {
         ...state,
         ...action.payload,

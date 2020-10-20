@@ -11,24 +11,24 @@ import * as fromSettings from './settings/reducers'
 import * as fromUser from './user/reducers'
 
 export const reducers: ActionReducerMap<any> = {
-  router: fromRouter.routerReducer,
+  //router: fromRouter.routerReducer,
   settings: fromSettings.reducer,
   user: fromUser.reducer,
 }
 
-export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
-  return (state: any, action: any): any => {
-    const result = reducer(state, action)
-    console.groupCollapsed(action.type)
-    console.log('prev state', state)
-    console.log('action', action)
-    console.log('next state', result)
-    console.groupEnd()
-    return result
-  }
-}
+// export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
+//   return (state: any, action: any): any => {
+//     const result = reducer(state, action)
+//     console.groupCollapsed(action.type)
+//     console.log('prev state', state)
+//     console.log('action', action)
+//     console.log('next state', result)
+//     console.groupEnd()
+//     return result
+//   }
+// }
 
-export const metaReducers: MetaReducer<any>[] = !environment.production ? [logger] : []
+export const metaReducers: MetaReducer<any>[] = !environment.production ? [] : []
 
 export const getSettingsState = createFeatureSelector<any>('settings')
 export const getSettings = createSelector(getSettingsState, fromSettings.getSettings)

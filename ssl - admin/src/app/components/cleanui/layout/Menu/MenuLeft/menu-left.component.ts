@@ -23,23 +23,37 @@ export class MenuLeftComponent implements OnInit {
   isMenuCollapsed: boolean
   logo: String
   menuData: any[]
-  menuDataActivated: any[]
+  menuDataActivated: any[] = []
   role: String
+  user: any
 
   constructor(private menuService: MenuService, private store: Store<any>, private router: Router) {
     const userInfo = JSON.parse(localStorage.getItem('user'))
     this.role = userInfo ? userInfo.role : null
-    console.log('ROLE in MENU', this.role, userInfo)
   }
 
   ngOnInit() {
-    this.store.pipe(select(Reducers.getSettings)).subscribe(state => {
-      this.isMenuCollapsed = state.isMenuCollapse
-      console.log('isMenuCollapsable', this.isMenuCollapsed)
+    // this.store.pipe(select(Reducers.getSettings)).subscribe(state => {
+    //   this.isMenuCollapsed = state.isMenuCollapse
+    //   console.log('isMenuCollapsable', this.isMenuCollapsed)
+    // })
+    this.store.pipe(select(Reducers.getUser)).subscribe(state => {
+      this.user = state
     })
+
     this.menuService.getMenuData().subscribe(menuData => (this.menuData = menuData))
+    // console.log('user', this.user)
+    // console.log('user', this.user.roles[0])
+    for (let j = 0; j < this.menuData.length; j++) {
+      // console.log('t', this.user.roles[0])
+      if (this.menuData[j].roles_menu.includes(this.user.roles[0])) {
+        this.menuDataActivated.push(this.menuData[j])
+      }
+    }
+    // console.log('MENUDATAACTIVATED', this.menuDataActivated)
 
     this.activateMenu(this.router.url)
+    console.log('URL', this.router.url)
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((event: NavigationStart) => {
@@ -47,7 +61,8 @@ export class MenuLeftComponent implements OnInit {
       })
   }
 
-  activateMenu(url: any, menuData = this.menuData) {
+  activateMenu(url: any, menuData = this.menuDataActivated) {
+    console.log('ACTIVATED', this.menuDataActivated)
     menuData = JSON.parse(JSON.stringify(menuData))
     const pathWithSelection = this.getPath({ url: url }, menuData, (entry: any) => entry, 'url')
     if (pathWithSelection) {

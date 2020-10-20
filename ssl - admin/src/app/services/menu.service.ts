@@ -14,20 +14,6 @@ export class MenuService {
   constructor(private store: Store<any>) {}
 
   getMenuData(): Observable<any[]> {
-    //   this.store.pipe(select(Reducers.getUser)).subscribe(userState => {
-    console.log('getMenuperROLE', getMenuData)
-    //     for (let i = 0; i < userState.roles.length; i++) {
-    //       for (let j = 0; j < getMenuData.length; j++) {
-    //         console.log('userState.roles[i]', userState.roles[i])
-    //         console.log('getMenuData[j].roles', getMenuData[j].roles)
-    //         console.log('if', getMenuData[j].roles.includes(userState.roles[i]))
-    //         if (!getMenuData[j].roles.includes(userState.roles[i])) {
-    //           this.getMenuPerRole.splice(j, 1)
-    //         }
-    //       }
-    //     }
-    //   })
-    //   console.log('MENU', this.getMenuPerRole)
     return of(getMenuData)
   }
 }
