@@ -4,6 +4,7 @@
       Administrar <span class="ml-3" style="font-size: 28px;">&#8226;</span>
       <span class="ml-3" style="color:#58544E; font-size: 25px;">Usuarios</span>
     </h2>
+    <p *ngIf="loading">Loading...</p>
   </div>
 
   <div class="card-body">
@@ -48,6 +49,13 @@
 
     <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span><br />
 
+    <pre>
+      {{ filters | json}}
+    </pre>
+
+    <pre>
+      {{ people | json}}
+    </pre>
     <table class="table table-bordered mt-4">
       <thead>
         <tr>

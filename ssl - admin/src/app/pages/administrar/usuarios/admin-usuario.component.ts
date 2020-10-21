@@ -13,6 +13,12 @@ import {
   FormArray,
 } from '@angular/forms'
 
+/*Imports del store*/
+import { select, Store } from '@ngrx/store'
+import * as Reducers from 'src/app/store/reducers'
+import * as EmployeesActions from 'src/app/store/employees/actions'
+import { getEmployeess } from 'src/app/store/employees/reducers'
+
 @Component({
   selector: 'app-admin-usuario',
   templateUrl: './admin-usuario.component.html',
@@ -30,16 +36,39 @@ export class AdminUsuarioComponent {
   newDynamic: any = {}
   isVisibleCargaMasiva: boolean
 
+  loading: boolean = false
+  people: Array<any> = []
+  filters: Array<string> = []
+
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>
   isResultadoCarga: boolean
 
-  constructor(public service: CountryService, private formBuilder: FormBuilder) {
+  constructor(
+    public service: CountryService,
+    private formBuilder: FormBuilder,
+    private store: Store<any>,
+  ) {
     this.countries$ = service.countries$
     this.total$ = service.total$
+
+    //Escuchar los datos de los empleados en el store
+    this.store.pipe(select(Reducers.getEmployeess)).subscribe(state => {
+      console.log('State desde admin', state)
+      this.loading = state.loading
+      this.people = state.people
+      this.filters = state.filters
+    })
   }
   ngOnInit(): void {
     this.newDynamic = { cedula: '', name: '', rol: '', email: '', cell: '', phone: '' }
     this.dynamicArray.push(this.newDynamic)
+
+    //Llamamos nuestra acción
+    this.store.dispatch(
+      new EmployeesActions.GetEmployees({
+        name: 'Olga',
+      }),
+    )
   }
 
   addRow() {

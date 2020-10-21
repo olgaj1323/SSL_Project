@@ -178,5 +178,8 @@
       }
     }
   },
-  "defaultProject": "cleanui"
+  "defaultProject": "cleanui",
+  "cli": {
+    "analytics": false
+  }
 }

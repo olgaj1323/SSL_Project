@@ -9,11 +9,13 @@ import { environment } from 'src/environments/environment'
 import * as fromRouter from '@ngrx/router-store'
 import * as fromSettings from './settings/reducers'
 import * as fromUser from './user/reducers'
+import * as fromEmployees from './employees/reducers'
 
 export const reducers: ActionReducerMap<any> = {
   //router: fromRouter.routerReducer,
   settings: fromSettings.reducer,
   user: fromUser.reducer,
+  employees: fromEmployees.reducer,
 }
 
 // export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -35,3 +37,6 @@ export const getSettings = createSelector(getSettingsState, fromSettings.getSett
 
 export const getUserState = createFeatureSelector<any>('user')
 export const getUser = createSelector(getUserState, fromUser.getUser)
+
+export const getEmployeesState = createFeatureSelector<any>('employees')
+export const getEmployeess = createSelector(getEmployeesState, fromEmployees.getEmployeess)
