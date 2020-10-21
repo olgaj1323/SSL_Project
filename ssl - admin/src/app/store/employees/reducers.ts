@@ -4,18 +4,17 @@ export const initialState: object = {
   people: [],
   filters: [],
   loading: false,
+  isAddUserModalOpen: false,
 }
 
 export function reducer(state = initialState, action: EmployeesActions.Actions): object {
   switch (action.type) {
     case EmployeesActions.GET_EMPLOYEES:
-      console.log('Action 1', action.payload)
       return {
         ...state,
         loading: true,
       }
     case EmployeesActions.GET_EMPLOYEES_SUCCESSFUL:
-      console.log('Action 2', action.payload)
       return {
         ...state,
         loading: false,
@@ -26,9 +25,19 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
         ...state,
         loading: false,
       }
+    case EmployeesActions.OPEN_ADD_USERS_MODAL:
+      return {
+        ...state,
+        isAddUserModalOpen: true,
+      }
+    case EmployeesActions.CLOSE_ADD_USERS_MODAL:
+      return {
+        ...state,
+        isAddUserModalOpen: false,
+      }
     default:
       return state
   }
 }
 
-export const getEmployeess = (state: any) => state
+export const getEmployees = (state: any) => state

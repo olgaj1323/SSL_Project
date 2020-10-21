@@ -39,4 +39,4 @@ export const getUserState = createFeatureSelector<any>('user')
 export const getUser = createSelector(getUserState, fromUser.getUser)
 
 export const getEmployeesState = createFeatureSelector<any>('employees')
-export const getEmployeess = createSelector(getEmployeesState, fromEmployees.getEmployeess)
+export const getEmployees = createSelector(getEmployeesState, fromEmployees.getEmployees)

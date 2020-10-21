@@ -7,6 +7,9 @@ import { AdminUsuarioComponent } from './usuarios/admin-usuario.component'
 import { AdministrarRoutingModule } from './administrar-routing.module'
 import { TerminosCondicionesComponent } from './terminos-condiciones/terminos-condiciones.component'
 import { ProyectosAdminComponent } from './proyectos-admin/proyectos-admin.component'
+import { AddUserComponent } from './usuarios/add-user/add-user.component'
+import { EditUserComponent } from './usuarios/edit-user/edit-user.component'
+import { MassLoadUsersComponent } from './usuarios/mass-load-users/mass-load-users.component'
 
 @NgModule({
   declarations: [
@@ -14,6 +17,9 @@ import { ProyectosAdminComponent } from './proyectos-admin/proyectos-admin.compo
     AdminUsuarioComponent,
     TerminosCondicionesComponent,
     ProyectosAdminComponent,
+    AddUserComponent,
+    EditUserComponent,
+    MassLoadUsersComponent,
   ],
   imports: [SharedModule, FormsModule, NgbModule, AdministrarRoutingModule],
 })
