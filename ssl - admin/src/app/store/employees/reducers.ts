@@ -2,7 +2,7 @@ import * as EmployeesActions from './actions'
 
 export const initialState: object = {
   people: [],
-  filters: [],
+  filterList: [],
   loading: false,
   isAddUserModalOpen: false,
 }
@@ -34,6 +34,21 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
       return {
         ...state,
         isAddUserModalOpen: false,
+      }
+    case EmployeesActions.CREATE_EMPLOYEES:
+      return {
+        ...state,
+        loading: true,
+      }
+    case EmployeesActions.CREATE_EMPLOYEES_SUCCESSFUL:
+      return {
+        ...state,
+        loading: false,
+      }
+    case EmployeesActions.CREATE_EMPLOYEES_UNSUCCESSFUL:
+      return {
+        ...state,
+        loading: false,
       }
     default:
       return state

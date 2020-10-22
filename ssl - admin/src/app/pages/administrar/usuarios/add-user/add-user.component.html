@@ -1,4 +1,5 @@
 <div class="container text-right">
+  <form [formGroup]="employeesForm" (ngSubmit)="onSubmit()">
     <table class="table table-striped table-bordered text-center">
       <thead>
         <tr>
@@ -11,59 +12,96 @@
         </tr>
       </thead>
       <tbody >
-        <tr>
+        <tr *ngFor="let control of employeesForm.controls; let i = index" [formGroupName]="i">
           <td>
-            <input
-              nz-input
-              class="form-control"
-              type="text"
-            />
+            <nz-form-control [nzErrorTip]="errorTpl">
+              <input nz-input class="form-control" type="number" formControlName="document"/>
+              <ng-template #errorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Ingrese cédula
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
           </td>
           <td>
-            <input nz-input class="form-control" type="text" />
+            <nz-form-control [nzErrorTip]="errorTpl">
+              <input nz-input class="form-control" type="text" formControlName="name"/>
+              <ng-template #errorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Ingrese nombre
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
           </td>
           <td>
-            <input nz-input class="form-control" type="text" />
+            <nz-form-control [nzErrorTip]="errorTpl">
+              <nz-select nz-input name="select-error" formControlName="roles">
+                <nz-option nzValue="" nzLabel="-- Seleccione --"></nz-option>
+                <nz-option nzValue="Option 1" nzLabel="Option 1"></nz-option>
+                <nz-option nzValue="Option 2" nzLabel="Option 2"></nz-option>
+              </nz-select>
+              <ng-template #errorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Seleccione rol
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
           </td>
           <td>
-            <input
-              nz-input
-              class="form-control"
-              type="text"
-            />
+            <nz-form-control [nzErrorTip]="errorTpl">
+              <input nz-input class="form-control" type="text" formControlName="email"/>
+              <ng-template #errorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Ingrese email
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
           </td>
           <td>
-            <input nz-input class="form-control" type="text" />
+            <nz-form-control [nzErrorTip]="errorTpl">
+              <input nz-input class="form-control" type="text" formControlName="mobile"/>
+              <ng-template #errorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Ingrese celular
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
           </td>
           <td>
-            <input
-              nz-input
-              class="form-control"
-              type="text"
-            />
+            <nz-form-control [nzErrorTip]="errorTpl">
+              <input nz-input class="form-control" type="text" formControlName="phone"/>
+              <ng-template #errorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                  Ingrese teléfono
+                </ng-container>
+              </ng-template>
+            </nz-form-control>
           </td>
           <td>
             <a
               nzTooltipTitle="Eliminar"
               nzTooltipPlacement="top"
               nz-tooltip
+              (click)="removeEmployeeRow(i)"
               ><i class="fe fe-trash-2 "></i
             ></a>
           </td>
         </tr>
       </tbody>
     </table>
-    <button nz-button class="yellowButton mb-4">
+    <button type="button" nz-button class="yellowButton mb-4" (click)="addNewEmployeeRow()">
       Agregar nueva fila
     </button>
     <div class="row justify-content-between mb-4 text-center">
       <div class="col">
-        <button nz-button style="width: 50%;" class="whiteButton" (click)="closeAddUserModal()">
+        <button type="button" nz-button style="width: 50%;" class="whiteButton" (click)="closeAddUserModal()">
           Cancelar
         </button>
       </div>
       <div class="col">
-        <button nz-button style="width: 50%;">Confirmar</button>
+        <button [disabled]="employeesForm.invalid" type="submit" nz-button style="width: 50%;">Confirmar</button><br>
+        <small *ngIf="employeesForm.invalid">Por favor ingrese los valores del formulario</small>
       </div>
     </div>
+  </form>
   </div>

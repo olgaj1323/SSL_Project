@@ -32,13 +32,12 @@ export class EmployeesEffects implements OnInitEffects {
       of(action).pipe(withLatestFrom(this.rxStore.pipe(select(Reducers.getSettings)))),
     ),
     switchMap(([payload, settings]) => {
-      console.log('Llamado del efecto', payload)
       return this.EmployeeService.getEmployees(payload).pipe(
         map(response => {
           if (response.status == 'success')
             return new EmployeesActions.GetEmployeesSuccessful({
-              people: response.people,
-              filters: response.filters,
+              people: response.people[0],
+              filterList: response.filters,
             })
 
           this.notification.warning('Get employees failed', response.error)

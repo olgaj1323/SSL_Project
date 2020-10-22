@@ -1,27 +1,49 @@
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import store from 'store'
-
-const domain2 = 'http://balanceadorssltcp-2bd7dae9cb338b43.elb.us-east-1.amazonaws.com'
+import { environment } from 'src/environments/environment'
 
 @Injectable()
 export class EmployeeService {
-  constructor(private http: HttpClient) {}
+  accessToken: any
 
-  getEmployees(filterParams: object): Observable<any> {
-    //const accessToken = store.get('accessToken')
-    const accessToken =
+  constructor(private http: HttpClient) {
+    //this.accessToken = store.get('accessToken');
+    this.accessToken =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZXMiOlsiUk9MRV9TVVBFUl9BRE1JTiJdLCJpYXQiOjE1OTkxMjQ0MjMsImV4cCI6MTYwNjkwMDQyM30.5rB3qLiyJFTEbupuaRV_X1dSDPBBKlEdEFSArwjbE4Q'
-    const params = accessToken
+  }
+
+  getEmployees(filterParams: any): Observable<any> {
+    let params: HttpParams = new HttpParams()
+    if (filterParams.filter) params = params.append('filter', filterParams.filter)
+    if (filterParams.value) params = params.append('value', filterParams.value)
+    if (filterParams.offset) params = params.append('offset', filterParams.offset)
+    if (filterParams.limit) params = params.append('limit', filterParams.limit)
+
+    const options = this.accessToken
       ? {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
-            AccessToken: accessToken,
+            Authorization: `Bearer ${this.accessToken}`,
+            AccessToken: this.accessToken,
+          },
+          params,
+        }
+      : {}
+
+    return this.http.get(environment.apiUrl + '/api/v1/user', options)
+  }
+
+  createEmployees(request: object): Observable<any> {
+    const params = this.accessToken
+      ? {
+          headers: {
+            Authorization: `Bearer ${this.accessToken}`,
+            AccessToken: this.accessToken,
           },
         }
       : {}
 
-    return this.http.get(domain2 + '/api/v1/user/', params)
+    return this.http.post(environment.apiUrl + '/api/v1/user/createWithArray', request, params)
   }
 }

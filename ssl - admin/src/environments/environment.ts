@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   authenticated: false,
   hmr: false,
+  apiUrl: 'http://balanceadorssltcp-2bd7dae9cb338b43.elb.us-east-1.amazonaws.com',
 }
 
 /*
