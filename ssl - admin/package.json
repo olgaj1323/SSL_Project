@@ -82,6 +82,7 @@
     "sortablejs": "^1.10.2",
     "store": "^2.0.12",
     "tslib": "^1.11.1",
+    "xlsx": "^0.16.8",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

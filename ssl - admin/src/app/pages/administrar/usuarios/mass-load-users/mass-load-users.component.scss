@@ -1,1 +1,50 @@
-//
+@import 'src/app/components/mixins.scss';
+
+.ant-select {
+  &-arrow {
+    margin-top: -11px;
+    color: red;
+    font-size: 17px;
+  }
+}
+::ng-deep .ant-select {
+  &-item-option--selected:not(&-disabled) {
+    background-color: yellow;
+  }
+}
+::ng-deep .ant-modal {
+  &-content {
+    .ant-modal-header {
+      border-bottom: none !important;
+      padding-top: 40px;
+    }
+    /*   .ant-form-item {
+      margin-bottom: 0px !important;
+    } */
+    .ant-modal-body {
+      padding: 10px 50px !important;
+      text-align: center;
+      .ant-select {
+        margin-bottom: 20px;
+        &-item-option-active {
+          background-color: red;
+        }
+      }
+    }
+
+    .ant-modal-footer {
+      display: none;
+    }
+  }
+}
+.avatar {
+  margin: auto;
+  margin-bottom: 20px;
+  width: 125px;
+}
+.fe-trash-2 {
+  font-size: 18px;
+  &:hover {
+    color: $danger;
+  }
+}

@@ -9,8 +9,8 @@
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <button nz-button (click)="openAddUsersModal()">Crear Usuario</button>
-      <button nz-button (click)="removeFilters()">Quitar filtros</button>
-      <button nz-button class="yellowButton">
+      <button [disabled]="filterForm.invalid" nz-button (click)="removeFilters()">Quitar filtros</button>
+      <button nz-button class="yellowButton" (click)="openMassLoadUsersModal()">
         Carga Masiva de Usuarios
       </button>
     </div>
@@ -63,6 +63,7 @@
         <th nzColumnKey="email">Correo</th>
         <th nzColumnKey="mobile">Celular</th>
         <th nzColumnKey="phone">Telefono</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -74,6 +75,16 @@
         <td>{{ employee.email }}</td>
         <td>{{ employee.mobile }}</td>
         <td>{{ employee.phone }}</td>
+        <td>
+          <a
+              nzTooltipTitle="Editar"
+              nzTooltipPlacement="top"
+              nz-tooltip
+              class="iconTableLink"
+              (click)="selectEmployeeForEdit(employee)"
+              ><i class="fe fe-edit"></i
+            ></a>
+        </td>
       </tr>
     </tbody>
     </nz-table>
@@ -83,15 +94,6 @@
         Descargar
         <img style="width: 50px;" src="../../../../assets/Imagenes/Copia de 001-excel copy.svg" />
       </button>
-     <!--
-        <a
-              nzTooltipTitle="Editar"
-              nzTooltipPlacement="top"
-              nz-tooltip
-              class="iconTableLink"
-              ><i class="fe fe-edit"></i
-            ></a>
-     -->
     </div>
   </div>
 </div>
@@ -119,81 +121,33 @@
 </nz-modal>
 
 <!---------------------Modal Editar Usuario---------------->
-<!-- <nz-modal
+<nz-modal
   nzWrapClassName="vertical-center-modal"
-  [(nzVisible)]="isVisibleEditUser"
+  [(nzVisible)]="isEditUserModalOpen"
   nzFooter="null"
   [nzTitle]="modalTitle"
   [nzContent]="modalContent"
   class="editUser"
-  (nzOnCancel)="editUserClose()"
+  (nzOnCancel)="closeEditUserModal()"
 >
   <ng-template #modalTitle>
     <h4>Detalle de usuario</h4>
   </ng-template>
 
   <ng-template #modalContent>
-    <div class="d-flex avatar">
-      <img src="../../../../assets/images/avatar.png" alt="Avatar" style="border-radius: 50%;" />
-    </div>
-
-    <form>
-      <nz-switch
-        [ngModel]="false"
-        nzCheckedChildren="Habilitado"
-        nzUnCheckedChildren="Deshabilitado"
-        [ngModelOptions]="{ standalone: true }"
-      ></nz-switch>
-
-      <nz-form-item>
-        <nz-form-label>Cédula</nz-form-label>
-        <input nz-input placeholder="0000-0000" />
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>Nombre</nz-form-label>
-        <input nz-input placeholder="" />
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>Correo </nz-form-label>
-        <input nz-input type="email" placeholder="" />
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>Celular </nz-form-label>
-        <input type="phone" nz-input placeholder="0000-0000" />
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>Roll </nz-form-label>
-        <nz-select nzPlaceHolder="">
-          <nz-option nzLabel="Super Administrador" nzValue="superAdmin"></nz-option>
-          <nz-option nzLabel="Admin Financiero" nzValue="financiero"></nz-option>
-          <nz-option nzLabel="Admin negocio" nzValue="negocio"></nz-option>
-          <nz-option nzLabel="Técnico" nzValue="tecnico"></nz-option>
-        </nz-select>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label>Contraseña </nz-form-label>
-        <input [type]="hide ? 'text' : 'password'" nz-input placeholder="Contraseña" />
-        <div
-          style="position: relative;
-        top: -25px;
-        left: 94%;"
-        >
-          <a (click)="hide = !hide"><i [ngClass]="hide ? 'fe fe-eye' : 'fe fe-eye-off'"></i></a>
-        </div>
-      </nz-form-item>
-    </form>
+   <app-edit-user></app-edit-user>
   </ng-template>
-</nz-modal> -->
+</nz-modal>
 
 <!-----------------Add Modal Carga Masiva--------------->
-<!-- <nz-modal
-  [(nzVisible)]="isVisibleCargaMasiva"
+<nz-modal
+  [(nzVisible)]="isMassLoadUserModalOpen"
   nzFooter="null"
   [nzTitle]="modalTitle3"
   [nzContent]="modalContent3"
   [nzWidth]="500"
   class="addUser"
-  (nzOnCancel)="cargaMasivaClose()"
+  (nzOnCancel)="closeMassLoadUserModal()"
   nzWrapClassName="vertical-center-modal"
 >
   <ng-template #modalTitle3>
@@ -201,67 +155,7 @@
   </ng-template>
 
   <ng-template #modalContent3>
-    <div class="text-justify">
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim porro nisi modi et libero
-        assumenda architecto ratione cumque repellat aspernatur, temporibus accusamus, facere eaque
-        rem ut quas iste, sit nostrum!
-      </p>
-      <nz-upload
-        nz-input
-        nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        [nzHeaders]="{ authorization: 'authorization-text' }"
-        (nzChange)="handleChange($event)"
-      >
-        <button nz-button><i nz-icon nzType="upload"></i>Seleccionar un archivo</button>
-      </nz-upload>
-      <div class="d-flex justify-content-between mb-4 mt-4 ">
-        <button nz-button class="whiteButton" (click)="cargaMasivaClose()">
-          Cancelar
-        </button>
-
-        <button nz-button (click)="resultadoCarga()">Confirmar</button>
-      </div>
-    </div>
+   <app-mass-load-users></app-mass-load-users>
   </ng-template>
-</nz-modal> -->
+</nz-modal>
 
-<!-- <nz-modal
-  [(nzVisible)]="isResultadoCarga"
-  nzFooter="null"
-  [nzTitle]="modalTitle4"
-  [nzContent]="modalContent4"
-  [nzWidth]="900"
-  class="addUser"
-  (nzOnCancel)="resultadoCargaClose()"
-  nzWrapClassName="vertical-center-modal"
->
-  <ng-template #modalTitle4>
-    <h4>Resultado de carga</h4>
-  </ng-template>
-
-  <ng-template #modalContent4>
-    <div class="text-justify">
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim porro nisi modi et libero
-        assumenda architecto ratione cumque repellat aspernatur, temporibus accusamus, facere eaque
-        rem ut quas iste, sit nostrum! Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
-        nulla fugiat cumque deleniti culpa accusamus omnis exercitationem minima suscipit libero
-        unde aut illum quae soluta eveniet id incidunt, et fugit.
-      </p>
-      <div class="row">
-        <div class="col-6">
-          <h5>Usuarios cargados con éxito</h5>
-          <textarea style="width: 100%;" disabled></textarea>
-        </div>
-        <div class="col-6">
-          <h5>Errores</h5>
-          <textarea style="width: 100%;" disabled></textarea>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end mb-4 mt-4 ">
-        <button nz-button>Aceptar</button>
-      </div>
-    </div>
-  </ng-template>
-</nz-modal> -->

@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store'
 import * as Reducers from 'src/app/store/reducers'
 import * as EmployeesActions from 'src/app/store/employees/actions'
 import { NzNotificationService, NzTableQueryParams } from 'ng-zorro-antd'
+import { Observable, Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-admin-usuario',
@@ -12,6 +13,9 @@ import { NzNotificationService, NzTableQueryParams } from 'ng-zorro-antd'
   styleUrls: ['./admin-usuario.component.scss'],
 })
 export class AdminUsuarioComponent {
+  subscription: Subscription = new Subscription()
+  employeeSubscription$: Observable<any> = this.store.pipe(select(Reducers.getEmployees))
+
   loading: boolean
   people: []
   filterList: []
@@ -25,6 +29,8 @@ export class AdminUsuarioComponent {
   pageIndex = 1
 
   isAddUserModalOpen: boolean
+  isEditUserModalOpen: boolean
+  isMassLoadUserModalOpen: boolean
 
   constructor(
     private store: Store<any>,
@@ -38,13 +44,17 @@ export class AdminUsuarioComponent {
   }
 
   suscribeToemployees() {
-    this.store.pipe(select(Reducers.getEmployees)).subscribe(state => {
-      this.isAddUserModalOpen = state.isAddUserModalOpen
-      this.loading = state.loading
-      this.people = state.people
-      this.filterList = state.filterList
-      this.total = state.people.count
-    })
+    this.subscription.add(
+      this.employeeSubscription$.subscribe(state => {
+        this.isAddUserModalOpen = state.isAddUserModalOpen
+        this.isEditUserModalOpen = state.isEditUserModalOpen
+        this.isMassLoadUserModalOpen = state.isMassLoadUserModalOpen
+        this.loading = state.loading
+        this.people = state.people
+        this.filterList = state.filterList
+        this.total = state.people.count
+      }),
+    )
   }
 
   loadDataFromServer(
@@ -80,14 +90,6 @@ export class AdminUsuarioComponent {
     this.loadDataFromServer(1, this.pageSize, null, null, [])
   }
 
-  openAddUsersModal() {
-    this.store.dispatch(new EmployeesActions.OpenAddUsersModal())
-  }
-
-  closeAddUserModal() {
-    this.store.dispatch(new EmployeesActions.CloseAddUsersModal())
-  }
-
   onQueryParamsChange(params: NzTableQueryParams): void {
     console.log(params)
     const { pageSize, pageIndex, sort, filter } = params
@@ -97,7 +99,39 @@ export class AdminUsuarioComponent {
     this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter)
   }
 
+  selectEmployeeForEdit(employee) {
+    this.store.dispatch(
+      new EmployeesActions.OpenEditUsersModal({
+        selectedEmployee: employee,
+      }),
+    )
+  }
+
   get f() {
     return this.filterForm.controls
+  }
+
+  openAddUsersModal() {
+    this.store.dispatch(new EmployeesActions.OpenAddUsersModal())
+  }
+
+  closeAddUserModal() {
+    this.store.dispatch(new EmployeesActions.CloseAddUsersModal())
+  }
+
+  closeEditUserModal() {
+    this.store.dispatch(new EmployeesActions.CloseEditUsersModal())
+  }
+
+  openMassLoadUsersModal() {
+    this.store.dispatch(new EmployeesActions.OpenMassLoadUsersModal())
+  }
+
+  closeMassLoadUserModal() {
+    this.store.dispatch(new EmployeesActions.CloseMassLoadUsersModal())
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }

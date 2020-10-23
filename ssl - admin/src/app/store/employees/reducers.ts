@@ -5,6 +5,8 @@ export const initialState: object = {
   filterList: [],
   loading: true,
   isAddUserModalOpen: false,
+  isEditUserModalOpen: false,
+  isMassLoadUserModalOpen: false,
   rolesList: [
     { id: 'superAdmin', value: 'Super Administrador' },
     { id: 'financiero', value: 'Admin Financiero' },
@@ -12,6 +14,7 @@ export const initialState: object = {
     { id: 'tecnico', value: 'Técnico' },
   ],
   createEmployeesResponse: null,
+  selectedEmployee: null,
 }
 
 export function reducer(state = initialState, action: EmployeesActions.Actions): object {
@@ -32,16 +35,6 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
         ...state,
         loading: false,
       }
-    case EmployeesActions.OPEN_ADD_USERS_MODAL:
-      return {
-        ...state,
-        isAddUserModalOpen: true,
-      }
-    case EmployeesActions.CLOSE_ADD_USERS_MODAL:
-      return {
-        ...state,
-        isAddUserModalOpen: false,
-      }
     case EmployeesActions.CREATE_EMPLOYEES:
       return {
         ...state,
@@ -57,6 +50,38 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
       return {
         ...state,
         loading: false,
+      }
+    case EmployeesActions.OPEN_ADD_USERS_MODAL:
+      return {
+        ...state,
+        isAddUserModalOpen: true,
+      }
+    case EmployeesActions.CLOSE_ADD_USERS_MODAL:
+      return {
+        ...state,
+        isAddUserModalOpen: false,
+      }
+    case EmployeesActions.OPEN_EDIT_USERS_MODAL:
+      return {
+        ...state,
+        isEditUserModalOpen: true,
+        selectedEmployee: action.payload.selectedEmployee,
+      }
+    case EmployeesActions.CLOSE_EDIT_USERS_MODAL:
+      return {
+        ...state,
+        isEditUserModalOpen: false,
+        selectedEmployee: null,
+      }
+    case EmployeesActions.OPEN_MASSLOAD_USERS_MODAL:
+      return {
+        ...state,
+        isMassLoadUserModalOpen: true,
+      }
+    case EmployeesActions.CLOSE_MASSLOAD_USERS_MODAL:
+      return {
+        ...state,
+        isMassLoadUserModalOpen: false,
       }
     default:
       return state
