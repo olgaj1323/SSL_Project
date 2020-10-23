@@ -4,7 +4,7 @@ import { FormBuilder, Validators, AbstractControl, FormArray, FormGroup } from '
 import { select, Store } from '@ngrx/store'
 import * as Reducers from 'src/app/store/reducers'
 import * as EmployeesActions from 'src/app/store/employees/actions'
-import { NzNotificationService } from 'ng-zorro-antd'
+import { NzNotificationService, NzTableQueryParams } from 'ng-zorro-antd'
 
 @Component({
   selector: 'app-admin-usuario',
@@ -20,6 +20,10 @@ export class AdminUsuarioComponent {
     filterValue: ['', [Validators.required]],
   })
 
+  total
+  pageSize = 5
+  pageIndex = 1
+
   isAddUserModalOpen: boolean
 
   constructor(
@@ -30,7 +34,7 @@ export class AdminUsuarioComponent {
 
   ngOnInit(): void {
     this.suscribeToemployees()
-    this.getEmployees()
+    this.loadDataFromServer(this.pageIndex, this.pageSize, null, null, [])
   }
 
   suscribeToemployees() {
@@ -39,16 +43,26 @@ export class AdminUsuarioComponent {
       this.loading = state.loading
       this.people = state.people
       this.filterList = state.filterList
+      this.total = state.people.count
     })
   }
 
-  getEmployees() {
+  loadDataFromServer(
+    pageIndex: number,
+    pageSize: number,
+    sortField: string | null,
+    sortOrder: string | null,
+    filter: Array<{ key: string; value: string[] }>,
+  ): void {
+    this.loading = true
     this.store.dispatch(
       new EmployeesActions.GetEmployees({
-        filter: null,
-        value: null,
-        offset: null,
-        limit: null,
+        //filter: (filter.length > 0) ? filter[0].key : null,
+        //value: (filter.length > 0) ? filter[0].value[0] : null,
+        filter: this.filterForm.valid ? this.filterForm.value.filterType : null,
+        value: this.filterForm.valid ? this.filterForm.value.filterValue : null,
+        offset: (pageIndex - 1) * pageSize,
+        limit: pageSize,
       }),
     )
   }
@@ -57,19 +71,13 @@ export class AdminUsuarioComponent {
     if (this.filterForm.invalid)
       this.notification.warning('Para filtrar', 'Debes completar los datos')
 
-    this.store.dispatch(
-      new EmployeesActions.GetEmployees({
-        filter: this.filterForm.value.filterType,
-        value: this.filterForm.value.filterValue,
-        offset: '1',
-        limit: '30',
-      }),
-    )
+    this.loadDataFromServer(1, this.pageSize, null, null, [])
+    this.pageIndex = 1
   }
 
   removeFilters() {
     this.filterForm.reset()
-    this.getEmployees()
+    this.loadDataFromServer(1, this.pageSize, null, null, [])
   }
 
   openAddUsersModal() {
@@ -78,6 +86,15 @@ export class AdminUsuarioComponent {
 
   closeAddUserModal() {
     this.store.dispatch(new EmployeesActions.CloseAddUsersModal())
+  }
+
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params)
+    const { pageSize, pageIndex, sort, filter } = params
+    const currentSort = sort.find(item => item.value !== null)
+    const sortField = (currentSort && currentSort.key) || null
+    const sortOrder = (currentSort && currentSort.value) || null
+    this.loadDataFromServer(pageIndex, pageSize, sortField, sortOrder, filter)
   }
 
   get f() {

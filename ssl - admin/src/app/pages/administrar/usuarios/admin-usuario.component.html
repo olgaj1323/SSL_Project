@@ -6,8 +6,6 @@
     </h2>
   </div>
 
-  <h1 *ngIf="loading"></h1>
-
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <button nz-button (click)="openAddUsersModal()">Crear Usuario</button>
@@ -45,69 +43,60 @@
       <button [disabled]="filterForm.invalid" nz-button nzType="primary" type="submit">Filtrar</button>
     </form>
 
-
-    <pre>{{ filterList | json }}</pre>
-    <pre>{{ people | json }}</pre>
-    <!--  <table class="table table-bordered mt-4">
-      <thead>
-        <tr>
-          <th scope="col">Cédula</th>
-          <th scope="col" sortable="name" (sort)="onSort($event)">Nombre</th>
-          <th scope="col" sortable="area" (sort)="onSort($event)">Rol</th>
-          <th scope="col" sortable="population" (sort)="onSort($event)">Correo electrónico</th>
-          <th scope="col" sortable="population" (sort)="onSort($event)">Celular</th>
-          <th scope="col" sortable="population" (sort)="onSort($event)">Teléfono Fijo</th>
-          <th scope="col" sortable="population" (sort)="onSort($event)"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let id of countries$ | async">
-          <td>
-            <ngb-highlight [result]="id.fecha" [term]="service.searchTerm"></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight [result]="id.name" [term]="service.searchTerm"></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight [result]="id.estadoProyecto" [term]="service.searchTerm"></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight [result]="id.sede" [term]="service.searchTerm"></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight [result]="id.sede" [term]="service.searchTerm"></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight [result]="id.sede" [term]="service.searchTerm"></ngb-highlight>
-          </td>
-          <td>
-            <a
-              nzTooltipTitle="Editar"
-              nzTooltipPlacement="top"
-              nz-tooltip
-              class="iconTableLink"
-              (click)="editUser()"
-              ><i class="fe fe-edit"></i
-            ></a>
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
-
-    <!--  <div class="d-flex justify-content-between p-2">
+    <br>
+    <nz-table
+    nzShowSizeChanger
+    [nzData]="people['rows']"
+    [nzFrontPagination]="false"  
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)"
+    >
+    <thead>
+      <tr>
+        <th nzColumnKey="id">ID</th>
+        <th nzColumnKey="document">Cédula</th>
+        <th nzColumnKey="name">Nombre</th>
+        <th nzColumnKey="company_role">Rol</th>
+        <th nzColumnKey="email">Correo</th>
+        <th nzColumnKey="mobile">Celular</th>
+        <th nzColumnKey="phone">Telefono</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of people['rows']">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.document }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.company_role }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.mobile }}</td>
+        <td>{{ employee.phone }}</td>
+      </tr>
+    </tbody>
+    </nz-table>
+   
+    <div class="d-flex justify-content-between p-2">
       <button nz-button>
         Descargar
         <img style="width: 50px;" src="../../../../assets/Imagenes/Copia de 001-excel copy.svg" />
       </button>
-      <ngb-pagination
-        [collectionSize]="total$ | async"
-        [(page)]="service.page"
-        [pageSize]="service.pageSize"
-      >
-      </ngb-pagination>
-    </div> -->
+     <!--
+        <a
+              nzTooltipTitle="Editar"
+              nzTooltipPlacement="top"
+              nz-tooltip
+              class="iconTableLink"
+              ><i class="fe fe-edit"></i
+            ></a>
+     -->
+    </div>
   </div>
 </div>
+
+
 
 <!-----------------Add Modal Add User--------------->
 <nz-modal

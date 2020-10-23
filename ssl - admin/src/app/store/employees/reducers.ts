@@ -3,7 +3,7 @@ import * as EmployeesActions from './actions'
 export const initialState: object = {
   people: [],
   filterList: [],
-  loading: false,
+  loading: true,
   isAddUserModalOpen: false,
   rolesList: [
     { id: 'superAdmin', value: 'Super Administrador' },
