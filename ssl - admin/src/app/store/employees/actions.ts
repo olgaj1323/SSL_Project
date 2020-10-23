@@ -3,9 +3,18 @@ import { Action } from '@ngrx/store'
 export const GET_EMPLOYEES = '[Employees] Get employees'
 export const GET_EMPLOYEES_SUCCESSFUL = '[Employees] Get employees Succesful'
 export const GET_EMPLOYEES_UNSUCCESSFUL = '[Employees] Get employees Unsuccesful'
+
 export const CREATE_EMPLOYEES = '[Employees] Create employees'
 export const CREATE_EMPLOYEES_SUCCESSFUL = '[Employees] Create employees Succesful'
 export const CREATE_EMPLOYEES_UNSUCCESSFUL = '[Employees] Create employees Unsuccesful'
+
+export const DOWLOAD_EMPLOYEES_EXCEL = '[Employees] Download employees excel'
+export const DOWLOAD_EMPLOYEES_EXCEL_QUERY_SUCCESS =
+  '[Employees] Download employees excel query success'
+export const DOWLOAD_EMPLOYEES_EXCEL_UNSUCCESSFUL =
+  '[Employees] Download employees excel query unsuccess'
+export const DOWLOAD_EMPLOYEES_EXCEL_FINALIZED =
+  '[Employees] Download employees excel query finalized'
 
 export const OPEN_ADD_USERS_MODAL = '[Employees] Open modal add users'
 export const CLOSE_ADD_USERS_MODAL = '[Employees] Close modal add users'
@@ -38,6 +47,22 @@ export class CreateEmployeesSuccessful implements Action {
 }
 export class CreateEmployeesUnsuccessful implements Action {
   readonly type = CREATE_EMPLOYEES_UNSUCCESSFUL
+  constructor() {}
+}
+export class DownloadEmployeesExcel implements Action {
+  readonly type = DOWLOAD_EMPLOYEES_EXCEL
+  constructor(public payload: any) {}
+}
+export class DownloadEmployeesExcelQuerySuccess implements Action {
+  readonly type = DOWLOAD_EMPLOYEES_EXCEL_QUERY_SUCCESS
+  constructor(public payload: any) {}
+}
+export class DownloadEmployeesExcelFinalized implements Action {
+  readonly type = DOWLOAD_EMPLOYEES_EXCEL_FINALIZED
+  constructor() {}
+}
+export class DownloadEmployeesExcelUnsuccessful implements Action {
+  readonly type = DOWLOAD_EMPLOYEES_EXCEL_UNSUCCESSFUL
   constructor() {}
 }
 
@@ -80,3 +105,7 @@ export type Actions =
   | CloseEditUsersModal
   | OpenMassLoadUsersModal
   | CloseMassLoadUsersModal
+  | DownloadEmployeesExcel
+  | DownloadEmployeesExcelQuerySuccess
+  | DownloadEmployeesExcelFinalized
+  | DownloadEmployeesExcelUnsuccessful

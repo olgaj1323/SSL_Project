@@ -6,6 +6,7 @@ import * as Reducers from 'src/app/store/reducers'
 import * as EmployeesActions from 'src/app/store/employees/actions'
 import { NzNotificationService, NzTableQueryParams } from 'ng-zorro-antd'
 import { Observable, Subscription } from 'rxjs'
+import { EmployeeService } from 'src/app/services/employee.service'
 
 @Component({
   selector: 'app-admin-usuario',
@@ -17,7 +18,9 @@ export class AdminUsuarioComponent {
   employeeSubscription$: Observable<any> = this.store.pipe(select(Reducers.getEmployees))
 
   loading: boolean
+  downloadExcelLoader: boolean = false
   people: []
+  peopleExcel: []
   filterList: []
   filterForm = this.fb.group({
     filterType: ['', [Validators.required]],
@@ -36,6 +39,7 @@ export class AdminUsuarioComponent {
     private store: Store<any>,
     private fb: FormBuilder,
     private notification: NzNotificationService,
+    private employeeService: EmployeeService,
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +57,9 @@ export class AdminUsuarioComponent {
         this.people = state.people
         this.filterList = state.filterList
         this.total = state.people.count
+        this.downloadExcelLoader = state.downloadExcelLoader
+        this.peopleExcel = state.peopleForDownloadExcel
+        if (this.peopleExcel.length > 1) this.generateExcel()
       }),
     )
   }
@@ -109,6 +116,22 @@ export class AdminUsuarioComponent {
 
   get f() {
     return this.filterForm.controls
+  }
+
+  getDataForDownloadExcel() {
+    this.store.dispatch(
+      new EmployeesActions.DownloadEmployeesExcel({
+        filter: this.filterForm.valid ? this.filterForm.value.filterType : null,
+        value: this.filterForm.valid ? this.filterForm.value.filterValue : null,
+        offset: null,
+        limit: null,
+      }),
+    )
+  }
+
+  generateExcel() {
+    this.employeeService.exportAsExcelFile(this.peopleExcel, 'employees')
+    this.store.dispatch(new EmployeesActions.DownloadEmployeesExcelFinalized())
   }
 
   openAddUsersModal() {

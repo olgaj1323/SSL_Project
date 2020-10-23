@@ -32,7 +32,7 @@
       </div>
       <div class="col-4">
         <nz-form-control [nzErrorTip]="errorTpl">
-          <input nz-input style="font-family: FontAwesome;  width: 100%;" name="searchTerm" class="form-control" type="text" formControlName="filterValue"/>
+          <input placeholder="xxxx@gmail.com" nz-input style="font-family: FontAwesome;  width: 100%;" name="searchTerm" class="form-control" type="text" formControlName="filterValue"/>
           <ng-template #errorTpl let-control>
             <ng-container *ngIf="f.filterValue.hasError('required')">
               Ingrese el valor
@@ -90,15 +90,13 @@
     </nz-table>
    
     <div class="d-flex justify-content-between p-2">
-      <button nz-button>
-        Descargar
+      <button type="button" nz-button [disabled]="downloadExcelLoader" (click)="getDataForDownloadExcel()">
+        {{ (downloadExcelLoader) ? 'Cargando...' : 'Descargar' }}
         <img style="width: 50px;" src="../../../../assets/Imagenes/Copia de 001-excel copy.svg" />
       </button>
     </div>
   </div>
 </div>
-
-
 
 <!-----------------Add Modal Add User--------------->
 <nz-modal

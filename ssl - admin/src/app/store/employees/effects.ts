@@ -72,4 +72,29 @@ export class EmployeesEffects implements OnInitEffects {
       )
     }),
   )
+
+  DOWLOAD_EMPLOYEES_EXCEL
+  @Effect()
+  downloadEmployeesExcel: Observable<any> = this.actions.pipe(
+    ofType(EmployeesActions.DOWLOAD_EMPLOYEES_EXCEL),
+    map((action: EmployeesActions.DownloadEmployeesExcel) => action.payload),
+    switchMap(payload => {
+      return this.EmployeeService.getEmployees(payload).pipe(
+        map(response => {
+          if (response.status == 'success')
+            return new EmployeesActions.DownloadEmployeesExcelQuerySuccess({
+              people: response.people.rows,
+            })
+
+          this.notification.warning('Get employees for excel failed', response.error)
+          return new EmployeesActions.DownloadEmployeesExcelUnsuccessful()
+        }),
+        catchError(error => {
+          console.log('GET EMPLOYEES FOR EXCEL ERROR: ', error)
+          this.notification.error('Api error', 'Has ocurred an error')
+          return from([{ type: EmployeesActions.DOWLOAD_EMPLOYEES_EXCEL_UNSUCCESSFUL }])
+        }),
+      )
+    }),
+  )
 }

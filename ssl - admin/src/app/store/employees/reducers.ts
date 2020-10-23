@@ -15,6 +15,8 @@ export const initialState: object = {
   ],
   createEmployeesResponse: null,
   selectedEmployee: null,
+  downloadExcelLoader: false,
+  peopleForDownloadExcel: [],
 }
 
 export function reducer(state = initialState, action: EmployeesActions.Actions): object {
@@ -82,6 +84,29 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
       return {
         ...state,
         isMassLoadUserModalOpen: false,
+      }
+    case EmployeesActions.DOWLOAD_EMPLOYEES_EXCEL:
+      return {
+        ...state,
+        downloadExcelLoader: true,
+      }
+    case EmployeesActions.DOWLOAD_EMPLOYEES_EXCEL_QUERY_SUCCESS:
+      return {
+        ...state,
+        peopleForDownloadExcel: action.payload.people,
+        downloadExcelLoader: true,
+      }
+    case EmployeesActions.DOWLOAD_EMPLOYEES_EXCEL_FINALIZED:
+      return {
+        ...state,
+        downloadExcelLoader: false,
+        peopleForDownloadExcel: [],
+      }
+    case EmployeesActions.DOWLOAD_EMPLOYEES_EXCEL_UNSUCCESSFUL:
+      return {
+        ...state,
+        downloadExcelLoader: false,
+        peopleForDownloadExcel: [],
       }
     default:
       return state
