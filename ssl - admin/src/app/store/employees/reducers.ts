@@ -5,6 +5,13 @@ export const initialState: object = {
   filterList: [],
   loading: false,
   isAddUserModalOpen: false,
+  rolesList: [
+    { id: 'superAdmin', value: 'Super Administrador' },
+    { id: 'financiero', value: 'Admin Financiero' },
+    { id: 'negocio', value: 'Admin negocio' },
+    { id: 'tecnico', value: 'Técnico' },
+  ],
+  createEmployeesResponse: null,
 }
 
 export function reducer(state = initialState, action: EmployeesActions.Actions): object {
@@ -44,6 +51,7 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
       return {
         ...state,
         loading: false,
+        createEmployeesResponse: action.payload.response,
       }
     case EmployeesActions.CREATE_EMPLOYEES_UNSUCCESSFUL:
       return {

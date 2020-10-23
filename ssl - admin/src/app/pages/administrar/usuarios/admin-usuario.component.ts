@@ -35,7 +35,6 @@ export class AdminUsuarioComponent {
 
   suscribeToemployees() {
     this.store.pipe(select(Reducers.getEmployees)).subscribe(state => {
-      console.log('Statee', state)
       this.isAddUserModalOpen = state.isAddUserModalOpen
       this.loading = state.loading
       this.people = state.people
@@ -44,26 +43,33 @@ export class AdminUsuarioComponent {
   }
 
   getEmployees() {
-    let params = {
-      filter: 'email',
-      value: '@',
-      offset: '3',
-      limit: '1',
-    }
-    this.store.dispatch(new EmployeesActions.GetEmployees(params))
+    this.store.dispatch(
+      new EmployeesActions.GetEmployees({
+        filter: null,
+        value: null,
+        offset: null,
+        limit: null,
+      }),
+    )
   }
 
   FilterFormOnSubmit() {
-    console.log(this.filterForm.value)
     if (this.filterForm.invalid)
       this.notification.warning('Para filtrar', 'Debes completar los datos')
-    let params = {
-      filter: this.filterForm.value.filterType,
-      value: this.filterForm.value.filterValue,
-      offset: '3',
-      limit: '1',
-    }
-    this.store.dispatch(new EmployeesActions.GetEmployees(params))
+
+    this.store.dispatch(
+      new EmployeesActions.GetEmployees({
+        filter: this.filterForm.value.filterType,
+        value: this.filterForm.value.filterValue,
+        offset: '1',
+        limit: '30',
+      }),
+    )
+  }
+
+  removeFilters() {
+    this.filterForm.reset()
+    this.getEmployees()
   }
 
   openAddUsersModal() {

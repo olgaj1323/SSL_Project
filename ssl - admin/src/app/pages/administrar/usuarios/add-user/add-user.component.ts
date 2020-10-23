@@ -3,6 +3,7 @@ import { FormBuilder, Validators, AbstractControl, FormArray, FormGroup } from '
 import { select, Store } from '@ngrx/store'
 import * as Reducers from 'src/app/store/reducers'
 import * as EmployeesActions from 'src/app/store/employees/actions'
+import { NzNotificationService } from 'ng-zorro-antd'
 
 @Component({
   selector: 'app-add-user',
@@ -11,11 +12,18 @@ import * as EmployeesActions from 'src/app/store/employees/actions'
 })
 export class AddUserComponent implements OnInit {
   employeesForm = this.fb.array([])
+  loading: boolean = false
+  rolesList: Array<any> = []
 
-  constructor(private store: Store<any>, private fb: FormBuilder) {}
+  constructor(
+    private store: Store<any>,
+    private fb: FormBuilder,
+    private notification: NzNotificationService,
+  ) {}
 
   ngOnInit(): void {
     this.addNewEmployeeRow()
+    this.suscribeToEmployees()
   }
 
   addNewEmployeeRow() {
@@ -31,12 +39,25 @@ export class AddUserComponent implements OnInit {
     )
   }
 
+  suscribeToEmployees() {
+    this.store.pipe(select(Reducers.getEmployees)).subscribe(state => {
+      this.loading = state.loading
+      this.rolesList = state.rolesList
+    })
+  }
+
   removeEmployeeRow(index) {
     this.employeesForm.removeAt(index)
   }
 
   onSubmit() {
-    console.log(this.employeesForm.value)
+    if (this.employeesForm.invalid)
+      this.notification.warning(
+        'Datos incorrectos',
+        'Por favor verifique el correcto diligenciamiento del formulario',
+      )
+
+    this.store.dispatch(new EmployeesActions.CreateEmployees(this.employeesForm.value))
   }
 
   closeAddUserModal() {

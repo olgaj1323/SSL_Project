@@ -37,8 +37,7 @@
             <nz-form-control [nzErrorTip]="errorTpl">
               <nz-select nz-input name="select-error" formControlName="roles">
                 <nz-option nzValue="" nzLabel="-- Seleccione --"></nz-option>
-                <nz-option nzValue="Option 1" nzLabel="Option 1"></nz-option>
-                <nz-option nzValue="Option 2" nzLabel="Option 2"></nz-option>
+                <nz-option *ngFor="let roleItem of rolesList" [nzValue]="[roleItem.id]" [nzLabel]="roleItem.value"></nz-option>
               </nz-select>
               <ng-template #errorTpl let-control>
                 <ng-container *ngIf="control.hasError('required')">
@@ -99,7 +98,9 @@
         </button>
       </div>
       <div class="col">
-        <button [disabled]="employeesForm.invalid" type="submit" nz-button style="width: 50%;">Confirmar</button><br>
+        <button [disabled]="employeesForm.invalid || loading" type="submit" nz-button style="width: 50%;">
+          {{ (loading) ? 'Cargando...' : 'Confirmar' }} 
+        </button><br>
         <small *ngIf="employeesForm.invalid">Por favor ingrese los valores del formulario</small>
       </div>
     </div>

@@ -10,6 +10,7 @@ import { ProyectosAdminComponent } from './proyectos-admin/proyectos-admin.compo
 import { AddUserComponent } from './usuarios/add-user/add-user.component'
 import { EditUserComponent } from './usuarios/edit-user/edit-user.component'
 import { MassLoadUsersComponent } from './usuarios/mass-load-users/mass-load-users.component'
+import { ResultUsersCreationComponent } from './usuarios/result-users-creation/result-users-creation.component'
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MassLoadUsersComponent } from './usuarios/mass-load-users/mass-load-use
     AddUserComponent,
     EditUserComponent,
     MassLoadUsersComponent,
+    ResultUsersCreationComponent,
   ],
   imports: [SharedModule, FormsModule, NgbModule, AdministrarRoutingModule],
 })

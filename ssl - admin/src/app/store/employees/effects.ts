@@ -36,7 +36,7 @@ export class EmployeesEffects implements OnInitEffects {
         map(response => {
           if (response.status == 'success')
             return new EmployeesActions.GetEmployeesSuccessful({
-              people: response.people[0],
+              people: response.people,
               filterList: response.filters,
             })
 
@@ -45,6 +45,27 @@ export class EmployeesEffects implements OnInitEffects {
         }),
         catchError(error => {
           console.log('GET EMPLOYEES ERROR: ', error)
+          this.notification.error('Api error', 'Has ocurred an error')
+          return from([{ type: EmployeesActions.GET_EMPLOYEES_UNSUCCESSFUL }])
+        }),
+      )
+    }),
+  )
+
+  @Effect()
+  createEmployees: Observable<any> = this.actions.pipe(
+    ofType(EmployeesActions.CREATE_EMPLOYEES),
+    map((action: EmployeesActions.CreateEmployees) => action.payload),
+    switchMap(payload => {
+      return this.EmployeeService.createEmployees(payload).pipe(
+        map(response => {
+          console.log('RESPONSE', response)
+          return new EmployeesActions.CreateEmployeesSuccessful({
+            response,
+          })
+        }),
+        catchError(error => {
+          console.log('CREATE EMPLOYEES ERROR: ', error)
           this.notification.error('Api error', 'Has ocurred an error')
           return from([{ type: EmployeesActions.GET_EMPLOYEES_UNSUCCESSFUL }])
         }),
