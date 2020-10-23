@@ -14,6 +14,7 @@ export class AddUserComponent implements OnInit {
   employeesForm = this.fb.array([])
   loading: boolean = false
   rolesList: Array<any> = []
+  creationEmployeesResponse: any
 
   constructor(
     private store: Store<any>,
@@ -31,7 +32,7 @@ export class AddUserComponent implements OnInit {
       this.fb.group({
         document: ['', [Validators.required]],
         name: ['', [Validators.required]],
-        email: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
         mobile: ['', [Validators.required]],
         phone: ['', [Validators.required]],
         roles: ['', [Validators.required]],
@@ -43,6 +44,7 @@ export class AddUserComponent implements OnInit {
     this.store.pipe(select(Reducers.getEmployees)).subscribe(state => {
       this.loading = state.loading
       this.rolesList = state.rolesList
+      this.creationEmployeesResponse = state.createEmployeesResponse
     })
   }
 

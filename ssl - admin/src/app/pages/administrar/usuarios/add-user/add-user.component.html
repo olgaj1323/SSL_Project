@@ -24,9 +24,9 @@
             </nz-form-control>
           </td>
           <td>
-            <nz-form-control [nzErrorTip]="errorTpl">
+            <nz-form-control [nzErrorTip]="errotTp2">
               <input nz-input class="form-control" type="text" formControlName="name"/>
-              <ng-template #errorTpl let-control>
+              <ng-template #errotTp2 let-control>
                 <ng-container *ngIf="control.hasError('required')">
                   Ingrese nombre
                 </ng-container>
@@ -34,12 +34,12 @@
             </nz-form-control>
           </td>
           <td>
-            <nz-form-control [nzErrorTip]="errorTpl">
+            <nz-form-control [nzErrorTip]="errorTp3">
               <nz-select nz-input name="select-error" formControlName="roles">
                 <nz-option nzValue="" nzLabel="-- Seleccione --"></nz-option>
                 <nz-option *ngFor="let roleItem of rolesList" [nzValue]="[roleItem.id]" [nzLabel]="roleItem.value"></nz-option>
               </nz-select>
-              <ng-template #errorTpl let-control>
+              <ng-template #errorTp3 let-control>
                 <ng-container *ngIf="control.hasError('required')">
                   Seleccione rol
                 </ng-container>
@@ -47,19 +47,22 @@
             </nz-form-control>
           </td>
           <td>
-            <nz-form-control [nzErrorTip]="errorTpl">
+            <nz-form-control [nzErrorTip]="errorTp4">
               <input nz-input class="form-control" type="text" formControlName="email"/>
-              <ng-template #errorTpl let-control>
+              <ng-template #errorTp4 let-control>
                 <ng-container *ngIf="control.hasError('required')">
                   Ingrese email
+                </ng-container>
+                <ng-container *ngIf="control.hasError('email')">
+                  Email incorrecto
                 </ng-container>
               </ng-template>
             </nz-form-control>
           </td>
           <td>
-            <nz-form-control [nzErrorTip]="errorTpl">
+            <nz-form-control [nzErrorTip]="errorTp5">
               <input nz-input class="form-control" type="text" formControlName="mobile"/>
-              <ng-template #errorTpl let-control>
+              <ng-template #errorTp5 let-control>
                 <ng-container *ngIf="control.hasError('required')">
                   Ingrese celular
                 </ng-container>
@@ -67,9 +70,9 @@
             </nz-form-control>
           </td>
           <td>
-            <nz-form-control [nzErrorTip]="errorTpl">
+            <nz-form-control [nzErrorTip]="errorTp6">
               <input nz-input class="form-control" type="text" formControlName="phone"/>
-              <ng-template #errorTpl let-control>
+              <ng-template #errorTp6 let-control>
                 <ng-container *ngIf="control.hasError('required')">
                   Ingrese teléfono
                 </ng-container>
@@ -105,4 +108,6 @@
       </div>
     </div>
   </form>
+  
+  <app-result-users-creation></app-result-users-creation>
   </div>
