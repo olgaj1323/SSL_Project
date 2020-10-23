@@ -18,7 +18,6 @@ export class AddUserComponent implements OnInit {
   employeesForm = this.fb.array([])
   loading: boolean = false
   rolesList: Array<any> = []
-  creationEmployeesResponse: any
 
   constructor(
     private store: Store<any>,
@@ -49,7 +48,6 @@ export class AddUserComponent implements OnInit {
       this.employeeSubscription$.subscribe(state => {
         this.loading = state.loading
         this.rolesList = state.rolesList
-        this.creationEmployeesResponse = state.createEmployeesResponse
       }),
     )
   }
