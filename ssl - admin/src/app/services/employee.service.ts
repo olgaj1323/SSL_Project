@@ -5,6 +5,7 @@ import store from 'store'
 import { environment } from 'src/environments/environment'
 import * as FileSaver from 'file-saver'
 import * as XLSX from 'xlsx'
+import { request } from 'http'
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
 const EXCEL_EXTENSION = '.xlsx'
@@ -61,5 +62,31 @@ export class EmployeeService {
   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], { type: EXCEL_TYPE })
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION)
+  }
+
+  updateEmployees(employeeId: any, request: any): Observable<any> {
+    const options = this.accessToken
+      ? {
+          headers: {
+            Authorization: `Bearer ${this.accessToken}`,
+            AccessToken: this.accessToken,
+          },
+        }
+      : {}
+
+    return this.http.put(environment.apiUrl + '/api/v1/user/' + employeeId, request, options)
+  }
+
+  getEmployee(employeeId: any): Observable<any> {
+    const options = this.accessToken
+      ? {
+          headers: {
+            Authorization: `Bearer ${this.accessToken}`,
+            AccessToken: this.accessToken,
+          },
+        }
+      : {}
+
+    return this.http.get(environment.apiUrl + '/api/v1/user/' + employeeId, options)
   }
 }

@@ -13,10 +13,19 @@ export const initialState: object = {
     { id: 'negocio', value: 'Admin negocio' },
     { id: 'tecnico', value: 'Técnico' },
   ],
+  personStates: [
+    { id: 'to_be_checked', value: 'To be checked' },
+    { id: 'active', value: 'Active' },
+    { id: 'pending_payment', value: 'Pending payment' },
+    { id: 'inactive', value: 'Inactive' },
+  ],
   createEmployeesResponse: null,
+  employeeIdToSearch: null,
   selectedEmployee: null,
+  selectedEmployeeData: null,
   downloadExcelLoader: false,
   peopleForDownloadExcel: [],
+  editEmployeeLoading: true,
 }
 
 export function reducer(state = initialState, action: EmployeesActions.Actions): object {
@@ -107,6 +116,39 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
         ...state,
         downloadExcelLoader: false,
         peopleForDownloadExcel: [],
+      }
+    case EmployeesActions.UPDATE_EMPLOYEE:
+      return {
+        ...state,
+        editEmployeeLoading: true,
+      }
+    case EmployeesActions.UPDATE_EMPLOYEE_SUCCESSFUL:
+      return {
+        ...state,
+        editEmployeeLoading: false,
+        isEditUserModalOpen: false,
+      }
+    case EmployeesActions.UPDATE_EMPLOYEE_UNSUCCESSFUL:
+      return {
+        ...state,
+        editEmployeeLoading: false,
+      }
+    case EmployeesActions.GET_EMPLOYEE:
+      return {
+        ...state,
+        employeeIdToSearch: action.payload.employeeIdToSearch,
+        editEmployeeLoading: true,
+      }
+    case EmployeesActions.GET_EMPLOYEE_SUCCESSFUL:
+      return {
+        ...state,
+        selectedEmployeeData: action.payload.employee,
+        editEmployeeLoading: false,
+      }
+    case EmployeesActions.GET_EMPLOYEE_UNSUCCESSFUL:
+      return {
+        ...state,
+        editEmployeeLoading: false,
       }
     default:
       return state

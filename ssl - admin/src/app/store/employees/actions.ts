@@ -8,6 +8,10 @@ export const CREATE_EMPLOYEES = '[Employees] Create employees'
 export const CREATE_EMPLOYEES_SUCCESSFUL = '[Employees] Create employees Succesful'
 export const CREATE_EMPLOYEES_UNSUCCESSFUL = '[Employees] Create employees Unsuccesful'
 
+export const UPDATE_EMPLOYEE = '[Employees] Update employee'
+export const UPDATE_EMPLOYEE_SUCCESSFUL = '[Employees] Update employee Succesful'
+export const UPDATE_EMPLOYEE_UNSUCCESSFUL = '[Employees] Update employee Unsuccesful'
+
 export const DOWLOAD_EMPLOYEES_EXCEL = '[Employees] Download employees excel'
 export const DOWLOAD_EMPLOYEES_EXCEL_QUERY_SUCCESS =
   '[Employees] Download employees excel query success'
@@ -24,6 +28,10 @@ export const CLOSE_EDIT_USERS_MODAL = '[Employees] Close modal edit users'
 
 export const OPEN_MASSLOAD_USERS_MODAL = '[Employees] Open massload edit users'
 export const CLOSE_MASSLOAD_USERS_MODAL = '[Employees] Close massload edit users'
+
+export const GET_EMPLOYEE = '[Employees] Get employee'
+export const GET_EMPLOYEE_SUCCESSFUL = '[Employees] Get employee Succesful'
+export const GET_EMPLOYEE_UNSUCCESSFUL = '[Employees] Get employee Unsuccesful'
 
 export class GetEmployees implements Action {
   readonly type = GET_EMPLOYEES
@@ -91,6 +99,30 @@ export class CloseMassLoadUsersModal implements Action {
   readonly type = CLOSE_MASSLOAD_USERS_MODAL
   constructor() {}
 }
+export class UpdateEmployee implements Action {
+  readonly type = UPDATE_EMPLOYEE
+  constructor(public payload: any) {}
+}
+export class UpdateEmployeeSuccessful implements Action {
+  readonly type = UPDATE_EMPLOYEE_SUCCESSFUL
+  constructor() {}
+}
+export class UpdateEmployeeUnsuccessful implements Action {
+  readonly type = UPDATE_EMPLOYEE_UNSUCCESSFUL
+  constructor() {}
+}
+export class GetEmployee implements Action {
+  readonly type = GET_EMPLOYEE
+  constructor(public payload: any) {}
+}
+export class GetEmployeeSuccessful implements Action {
+  readonly type = GET_EMPLOYEE_SUCCESSFUL
+  constructor(public payload: any) {}
+}
+export class GetEmployeeUnsuccessful implements Action {
+  readonly type = GET_EMPLOYEE_UNSUCCESSFUL
+  constructor() {}
+}
 
 export type Actions =
   | GetEmployees
@@ -109,3 +141,9 @@ export type Actions =
   | DownloadEmployeesExcelQuerySuccess
   | DownloadEmployeesExcelFinalized
   | DownloadEmployeesExcelUnsuccessful
+  | UpdateEmployee
+  | UpdateEmployeeSuccessful
+  | UpdateEmployeeUnsuccessful
+  | GetEmployee
+  | GetEmployeeSuccessful
+  | GetEmployeeUnsuccessful

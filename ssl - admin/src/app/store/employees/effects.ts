@@ -59,7 +59,6 @@ export class EmployeesEffects implements OnInitEffects {
     switchMap(payload => {
       return this.EmployeeService.createEmployees(payload).pipe(
         map(response => {
-          console.log('RESPONSE', response)
           return new EmployeesActions.CreateEmployeesSuccessful({
             response,
           })
@@ -73,7 +72,6 @@ export class EmployeesEffects implements OnInitEffects {
     }),
   )
 
-  DOWLOAD_EMPLOYEES_EXCEL
   @Effect()
   downloadEmployeesExcel: Observable<any> = this.actions.pipe(
     ofType(EmployeesActions.DOWLOAD_EMPLOYEES_EXCEL),
@@ -93,6 +91,55 @@ export class EmployeesEffects implements OnInitEffects {
           console.log('GET EMPLOYEES FOR EXCEL ERROR: ', error)
           this.notification.error('Api error', 'Has ocurred an error')
           return from([{ type: EmployeesActions.DOWLOAD_EMPLOYEES_EXCEL_UNSUCCESSFUL }])
+        }),
+      )
+    }),
+  )
+
+  @Effect()
+  updateEmployees: Observable<any> = this.actions.pipe(
+    ofType(EmployeesActions.UPDATE_EMPLOYEE),
+    map((action: EmployeesActions.UpdateEmployee) => action.payload),
+    switchMap(payload => {
+      return this.EmployeeService.updateEmployees(payload.employeeId, payload.request).pipe(
+        map(response => {
+          if (response.status == 'success') {
+            this.notification.success('Proceso correcto', 'Usuario modificado con exito')
+            return new EmployeesActions.UpdateEmployeeSuccessful()
+          }
+
+          this.notification.warning('Update employee failed', response.error)
+          return new EmployeesActions.UpdateEmployeeUnsuccessful()
+        }),
+        catchError(error => {
+          console.log('UPDATE EMPLOYEES ERROR: ', error)
+          this.notification.error('Api error', 'Has ocurred an error')
+          return from([{ type: EmployeesActions.UPDATE_EMPLOYEE_UNSUCCESSFUL }])
+        }),
+      )
+    }),
+  )
+
+  @Effect()
+  getEmployee: Observable<any> = this.actions.pipe(
+    ofType(EmployeesActions.GET_EMPLOYEE),
+    map((action: EmployeesActions.GetEmployee) => action.payload),
+    switchMap(payload => {
+      return this.EmployeeService.getEmployee(payload.employeeIdToSearch).pipe(
+        map(response => {
+          console.log('RESPONSE', response)
+          if (response.status == 'success')
+            return new EmployeesActions.GetEmployeeSuccessful({
+              employee: response.person,
+            })
+
+          this.notification.warning('Get employee failed', response.error)
+          return new EmployeesActions.GetEmployeeUnsuccessful()
+        }),
+        catchError(error => {
+          console.log('GET EMPLOYEE ERROR: ', error)
+          this.notification.error('Api error', 'Has ocurred an error')
+          return from([{ type: EmployeesActions.GET_EMPLOYEE_UNSUCCESSFUL }])
         }),
       )
     }),

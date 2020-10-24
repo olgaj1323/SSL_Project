@@ -1,49 +1,123 @@
-<div class="d-flex avatar">
-    <img src="../../../../assets/images/avatar.png" alt="Avatar" style="border-radius: 50%;" />
-  </div>
+<div *ngIf="loading; else mainContent">
+  <p>Cargando...</p>
+</div>
+<ng-template #mainContent>
 
-  <form>
-    <nz-switch
-      [ngModel]="false"
-      nzCheckedChildren="Habilitado"
-      nzUnCheckedChildren="Deshabilitado"
-      [ngModelOptions]="{ standalone: true }"
-    ></nz-switch>
+  <nz-avatar [nzSize]="64" 
+    [nzSrc]="
+      (selectedEmployeeData.profile_image.length > 0) 
+      ? selectedEmployeeData.profile_image[0].fileModel.s3Location 
+      : 'assets/images/avatar.png'"></nz-avatar>
+  <br>
+  <br>
+  
+  <form [formGroup]="employeesForm" (ngSubmit)="onSubmit()">
 
     <nz-form-item>
-      <nz-form-label>Cédula</nz-form-label>
-      <input nz-input placeholder="0000-0000" />
+      <nz-form-label [nzSm]="6" [nzXs]="24">Cédula</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzErrorTip]="errorTpl">
+        <input nz-input class="form-control" type="number" formControlName="document"/>
+        <ng-template #errorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Ingrese cédula
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
     </nz-form-item>
+
     <nz-form-item>
-      <nz-form-label>Nombre</nz-form-label>
-      <input nz-input placeholder="" />
+      <nz-form-label [nzSm]="6" [nzXs]="24">Nombre</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzErrorTip]="errotTp2">
+        <input nz-input class="form-control" type="text" formControlName="name"/>
+        <ng-template #errotTp2 let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Ingrese nombre
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
     </nz-form-item>
+    
     <nz-form-item>
-      <nz-form-label>Correo </nz-form-label>
-      <input nz-input type="email" placeholder="" />
+      <nz-form-label [nzSm]="6" [nzXs]="24">Email</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzErrorTip]="errorTp4">
+        <input nz-input class="form-control" type="text" formControlName="email"/>
+        <ng-template #errorTp4 let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Ingrese email
+          </ng-container>
+          <ng-container *ngIf="control.hasError('email')">
+            Email incorrecto
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
     </nz-form-item>
+                
     <nz-form-item>
-      <nz-form-label>Celular </nz-form-label>
-      <input type="phone" nz-input placeholder="0000-0000" />
+      <nz-form-label [nzSm]="6" [nzXs]="24">Celular</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzErrorTip]="errorTp5">
+        <input nz-input class="form-control" type="text" formControlName="mobile"/>
+        <ng-template #errorTp5 let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Ingrese celular
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
     </nz-form-item>
+    
     <nz-form-item>
-      <nz-form-label>Roll </nz-form-label>
-      <nz-select nzPlaceHolder="">
-        <nz-option nzLabel="Super Administrador" nzValue="superAdmin"></nz-option>
-        <nz-option nzLabel="Admin Financiero" nzValue="financiero"></nz-option>
-        <nz-option nzLabel="Admin negocio" nzValue="negocio"></nz-option>
-        <nz-option nzLabel="Técnico" nzValue="tecnico"></nz-option>
-      </nz-select>
+      <nz-form-label [nzSm]="6" [nzXs]="24">Teléfono</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzErrorTip]="errorTp6">
+        <input nz-input class="form-control" type="text" formControlName="phone"/>
+        <ng-template #errorTp6 let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Ingrese teléfono
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
     </nz-form-item>
+
     <nz-form-item>
-      <nz-form-label>Contraseña </nz-form-label>
-      <input [type]="hide ? 'text' : 'password'" nz-input placeholder="Contraseña" />
-      <div
-        style="position: relative;
-      top: -25px;
-      left: 94%;"
-      >
-        <a (click)="hide = !hide"><i [ngClass]="hide ? 'fe fe-eye' : 'fe fe-eye-off'"></i></a>
+      <nz-form-label [nzSm]="6" [nzXs]="24">Estado</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzErrorTip]="errorTp3">
+        <nz-select style="width: 100%;" nz-input name="select-error" formControlName="state">
+          <nz-option nzValue="" nzLabel="-- Seleccione --"></nz-option>
+          <nz-option *ngFor="let personState of personStates" [nzValue]="[personState.id]" [nzLabel]="personState.value"></nz-option>
+        </nz-select>
+        <ng-template #errorTp3 let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Seleccione estado
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24">Foto de perfil</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzErrorTip]="errorTp7">
+        <input nz-input id="customFile" class="custom-file-input" type="file" formControlName="file"  (change)="onFileChange($event)"/>
+        <label class="custom-file-label" for="customFile">Foto</label>
+        <ng-template #errorTp7 let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Ingrese teléfono
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <br>
+    <div class="row justify-content-between mb-4 text-center">
+      <div class="col">
+        <button type="button" nz-button style="width: 50%;" class="whiteButton" (click)="closeEditUserModal()">
+          Cancelar
+        </button>
       </div>
-    </nz-form-item>
+      <div class="col">
+        <button [disabled]="employeesForm.invalid || loading" type="submit" nz-button style="width: 50%;">
+          {{ (loading) ? 'Cargando...' : 'Confirmar' }} 
+        </button><br>
+        <small *ngIf="employeesForm.invalid">Ingrese los valores del formulario</small>
+      </div>
+    </div>
   </form>
+   
+  
+</ng-template>
