@@ -146,7 +146,7 @@ export class EmployeesEffects implements OnInitEffects {
   )
 
   @Effect()
-  updateEmployeeUnsuccessful: Observable<any> = this.actions.pipe(
+  updateEmployeeSuccessful: Observable<any> = this.actions.pipe(
     ofType(EmployeesActions.UPDATE_EMPLOYEE_SUCCESSFUL),
     map(() => {
       return new EmployeesActions.GetEmployees({
