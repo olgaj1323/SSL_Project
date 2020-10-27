@@ -19,12 +19,12 @@ export class AdminUsuarioComponent {
 
   loading: boolean
   downloadExcelLoader: boolean = false
-  people: []
-  peopleExcel: []
-  filterList: []
+  people = []
+  peopleExcel = []
+  filterList: Array<any> = []
   filterForm = this.fb.group({
-    filterType: ['', [Validators.required]],
-    filterValue: ['', [Validators.required]],
+    filterType: [''],
+    filterValue: [''],
   })
 
   total
@@ -55,10 +55,11 @@ export class AdminUsuarioComponent {
         this.isMassLoadUserModalOpen = state.isMassLoadUserModalOpen
         this.loading = state.loading
         this.people = state.people
-        this.filterList = state.filterList
         this.total = state.people.count
         this.downloadExcelLoader = state.downloadExcelLoader
         this.peopleExcel = state.peopleForDownloadExcel
+
+        if (this.filterList.length < 1) this.filterList = state.filterList
         if (this.peopleExcel.length > 1) this.generateExcel()
       }),
     )
@@ -71,13 +72,12 @@ export class AdminUsuarioComponent {
     sortOrder: string | null,
     filter: Array<{ key: string; value: string[] }>,
   ): void {
-    this.loading = true
     this.store.dispatch(
       new EmployeesActions.GetEmployees({
         //filter: (filter.length > 0) ? filter[0].key : null,
         //value: (filter.length > 0) ? filter[0].value[0] : null,
-        filter: this.filterForm.valid ? this.filterForm.value.filterType : null,
-        value: this.filterForm.valid ? this.filterForm.value.filterValue : null,
+        filter: this.filterForm.value.filterType,
+        value: this.filterForm.value.filterValue,
         offset: (pageIndex - 1) * pageSize,
         limit: pageSize,
       }),
@@ -90,11 +90,6 @@ export class AdminUsuarioComponent {
 
     this.loadDataFromServer(1, this.pageSize, null, null, [])
     this.pageIndex = 1
-  }
-
-  removeFilters() {
-    this.filterForm.reset()
-    this.loadDataFromServer(1, this.pageSize, null, null, [])
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -132,6 +127,16 @@ export class AdminUsuarioComponent {
   generateExcel() {
     this.employeeService.exportAsExcelFile(this.peopleExcel, 'employees')
     this.store.dispatch(new EmployeesActions.DownloadEmployeesExcelFinalized())
+  }
+
+  filterSelectChanged(event) {
+    if (!event) {
+      this.filterForm.patchValue({
+        filterValue: '',
+      })
+
+      this.loadDataFromServer(1, this.pageSize, null, null, [])
+    }
   }
 
   openAddUsersModal() {

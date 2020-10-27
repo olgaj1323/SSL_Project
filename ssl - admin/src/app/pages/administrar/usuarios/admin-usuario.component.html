@@ -9,7 +9,6 @@
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <button nz-button (click)="openAddUsersModal()">Crear Usuario</button>
-      <button [disabled]="filterForm.invalid" nz-button (click)="removeFilters()">Quitar filtros</button>
       <button nz-button class="yellowButton" (click)="openMassLoadUsersModal()">
         Carga Masiva de Usuarios
       </button>
@@ -19,8 +18,7 @@
     <form class="row mt-4" [formGroup]="filterForm" (ngSubmit)="FilterFormOnSubmit()">
       <div class="col-4">
         <nz-form-control [nzErrorTip]="errorTpl">
-          <nz-select  nzSuffixIcon="filter" nzShowSearch nzAllowClear style="width: 100%;" nz-input name="select-error" formControlName="filterType">
-            <nz-option nzValue="" nzLabel="-- Seleccione --"></nz-option>
+          <nz-select nzPlaceHolder="-- Seleccione --" (ngModelChange)="filterSelectChanged($event)"  nzSuffixIcon="filter" nzShowSearch nzAllowClear style="width: 100%;" nz-input name="select-error" formControlName="filterType"> 
             <nz-option *ngFor="let filterItem of filterList" [nzLabel]="filterItem" [nzValue]="filterItem"></nz-option>
           </nz-select>
           <ng-template #errorTpl let-control>
@@ -31,16 +29,16 @@
         </nz-form-control>
       </div>
       <div class="col-4">
-        <nz-form-control [nzErrorTip]="errorTpl">
+        <nz-form-control [nzErrorTip]="errorTp2">
           <input placeholder="xxxx@gmail.com" nz-input style="font-family: FontAwesome;  width: 100%;" name="searchTerm" class="form-control" type="text" formControlName="filterValue"/>
-          <ng-template #errorTpl let-control>
+          <ng-template #errorTp2 let-control>
             <ng-container *ngIf="f.filterValue.hasError('required')">
               Ingrese el valor
             </ng-container>
           </ng-template>
         </nz-form-control>
       </div>
-      <button [disabled]="filterForm.invalid" nz-button nzType="primary" type="submit">Filtrar</button>
+      <button style="display: none;" [disabled]="filterForm.invalid" nz-button nzType="primary" type="submit">Filtrar</button>
     </form>
 
     <br>

@@ -66,6 +66,7 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
       return {
         ...state,
         isAddUserModalOpen: true,
+        createEmployeesResponse: null,
       }
     case EmployeesActions.CLOSE_ADD_USERS_MODAL:
       return {
@@ -88,6 +89,7 @@ export function reducer(state = initialState, action: EmployeesActions.Actions):
       return {
         ...state,
         isMassLoadUserModalOpen: true,
+        createEmployeesResponse: null,
       }
     case EmployeesActions.CLOSE_MASSLOAD_USERS_MODAL:
       return {
